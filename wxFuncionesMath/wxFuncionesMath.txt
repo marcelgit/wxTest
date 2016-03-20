@@ -1,0 +1,1 @@
+./Debug/main.cpp.o ./Debug/MainFrame.cpp.o ./Debug/wxcrafter.cpp.o ./Debug/wxcrafter_bitmaps.cpp.o ./Debug/TrigonometricasClass.cpp.o ./Debug/ExponencialesClass.cpp.o ./Debug/LogaritmicasClass.cpp.o ./Debug/HiperbolicasClass.cpp.o ./Debug/OtrasClass.cpp.o
