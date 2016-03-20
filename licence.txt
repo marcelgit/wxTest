@@ -1,0 +1,6 @@
+Terms of licence.
+
+The content of this repository is offered as is, without any warranty.
+Please refer to http://wxwidgets.org/about/licence/ for wxWidgets licence
+and http://www.gnu.org/licenses/licenses.html for gpl and lgpl licences.
+
