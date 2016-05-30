@@ -24,7 +24,7 @@
 			"m_properties":	[{
 					"type":	"string",
 					"m_label":	"Size:",
-					"m_value":	"500,300"
+					"m_value":	"600,500"
 				}, {
 					"type":	"string",
 					"m_label":	"Minimum Size:",
@@ -267,11 +267,78 @@
 												}, {
 													"type":	"string",
 													"m_label":	"Name:",
-													"m_value":	"m_datePicker23"
+													"m_value":	"m_fechaInformeDatePicker"
 												}, {
 													"type":	"multi-string",
 													"m_label":	"Tooltip:",
 													"m_value":	"Fecha del comunicado"
+												}, {
+													"type":	"colour",
+													"m_label":	"Bg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"colour",
+													"m_label":	"Fg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"font",
+													"m_label":	"Font:",
+													"m_value":	""
+												}, {
+													"type":	"bool",
+													"m_label":	"Hidden",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Disabled",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Focused",
+													"m_value":	false
+												}, {
+													"type":	"string",
+													"m_label":	"Class Name:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Include File:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Style:",
+													"m_value":	""
+												}],
+											"m_events":	[],
+											"m_children":	[]
+										}, {
+											"m_type":	4418,
+											"proportion":	0,
+											"border":	5,
+											"gbSpan":	"1,1",
+											"gbPosition":	"0,0",
+											"m_styles":	["wxLI_HORIZONTAL"],
+											"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+											"m_properties":	[{
+													"type":	"winid",
+													"m_label":	"ID:",
+													"m_winid":	"wxID_ANY"
+												}, {
+													"type":	"string",
+													"m_label":	"Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Minimum Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Name:",
+													"m_value":	"m_staticLine51"
+												}, {
+													"type":	"multi-string",
+													"m_label":	"Tooltip:",
+													"m_value":	""
 												}, {
 													"type":	"colour",
 													"m_label":	"Bg Colour:",
@@ -338,7 +405,7 @@
 												}, {
 													"type":	"string",
 													"m_label":	"# Rows:",
-													"m_value":	"5"
+													"m_value":	"4"
 												}, {
 													"type":	"string",
 													"m_label":	"Growable columns:",
@@ -359,7 +426,7 @@
 											"m_events":	[],
 											"m_children":	[{
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -434,7 +501,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -455,7 +522,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_saldoAnteriorTextCtrl29"
+															"m_value":	"m_saldoAnteriorTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -487,15 +554,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -517,11 +584,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnSaldoAnteriorUpdated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -596,7 +670,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -617,7 +691,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_creditoConcedidoTextCtrl33"
+															"m_value":	"m_creditoConcedidoTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -649,15 +723,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -679,11 +753,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnCreditoConcedidoUpdated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -758,7 +839,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -779,7 +860,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_creditoCobradoTextCtrl37"
+															"m_value":	"m_creditoCobradoTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -811,15 +892,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -841,11 +922,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnCreditoCobradoUpdated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -920,7 +1008,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -941,7 +1029,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_saldoFinalTextCtrl41"
+															"m_value":	"m_saldoFinalTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -973,15 +1061,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -1005,141 +1093,74 @@
 														}],
 													"m_events":	[],
 													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine51"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine53"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
 												}]
+										}, {
+											"m_type":	4418,
+											"proportion":	0,
+											"border":	5,
+											"gbSpan":	"1,1",
+											"gbPosition":	"0,0",
+											"m_styles":	["wxLI_HORIZONTAL"],
+											"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+											"m_properties":	[{
+													"type":	"winid",
+													"m_label":	"ID:",
+													"m_winid":	"wxID_ANY"
+												}, {
+													"type":	"string",
+													"m_label":	"Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Minimum Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Name:",
+													"m_value":	"m_staticLine53"
+												}, {
+													"type":	"multi-string",
+													"m_label":	"Tooltip:",
+													"m_value":	""
+												}, {
+													"type":	"colour",
+													"m_label":	"Bg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"colour",
+													"m_label":	"Fg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"font",
+													"m_label":	"Font:",
+													"m_value":	""
+												}, {
+													"type":	"bool",
+													"m_label":	"Hidden",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Disabled",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Focused",
+													"m_value":	false
+												}, {
+													"type":	"string",
+													"m_label":	"Class Name:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Include File:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Style:",
+													"m_value":	""
+												}],
+											"m_events":	[],
+											"m_children":	[]
 										}, {
 											"m_type":	4403,
 											"proportion":	0,
@@ -1167,11 +1188,11 @@
 												}, {
 													"type":	"string",
 													"m_label":	"# Rows:",
-													"m_value":	"8"
+													"m_value":	"7"
 												}, {
 													"type":	"string",
 													"m_label":	"Growable columns:",
-													"m_value":	""
+													"m_value":	"0,1"
 												}, {
 													"type":	"string",
 													"m_label":	"Growable rows:",
@@ -1188,7 +1209,7 @@
 											"m_events":	[],
 											"m_children":	[{
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1263,7 +1284,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1284,7 +1305,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_banco1textCtrl57"
+															"m_value":	"m_banco1textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1350,11 +1371,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -1371,7 +1392,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento1banco1datePicker59"
+															"m_value":	"m_vencimiento1banco1datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1417,7 +1438,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1438,7 +1459,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe1banco1textCtrl61"
+															"m_value":	"m_importe1banco1textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1470,15 +1491,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -1500,11 +1521,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte1Banco1Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1579,7 +1607,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4454,
-													"proportion":	1,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1598,11 +1626,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -1619,7 +1647,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento2banco1datePicker69"
+															"m_value":	"m_vencimiento2banco1datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1665,7 +1693,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1686,7 +1714,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe2banco1textCtrl71"
+															"m_value":	"m_importe2banco1textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1718,15 +1746,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -1748,11 +1776,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte2Banco1Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1827,7 +1862,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -1848,7 +1883,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_banco2textCtrl75"
+															"m_value":	"m_banco2textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1914,11 +1949,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -1935,7 +1970,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento1banco2datePicker77"
+															"m_value":	"m_vencimiento1banco2datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -1981,7 +2016,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2002,7 +2037,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe1banco2textCtrl79"
+															"m_value":	"m_importe1banco2textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2034,15 +2069,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -2064,11 +2099,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte1Banco2Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2143,7 +2185,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4454,
-													"proportion":	1,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2162,11 +2204,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -2183,7 +2225,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento2banco2datePicker85"
+															"m_value":	"m_vencimiento2banco2datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2229,7 +2271,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2250,7 +2292,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe2banco2textCtrl87"
+															"m_value":	"m_importe2banco2textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2282,15 +2324,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -2312,11 +2354,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte2Banco2Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2391,7 +2440,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2412,7 +2461,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_banco3textCtrl91"
+															"m_value":	"m_banco3textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2478,11 +2527,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -2499,7 +2548,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento1banco3datePicker93"
+															"m_value":	"m_vencimiento1banco3datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2545,7 +2594,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2566,7 +2615,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe1banco3textCtrl95"
+															"m_value":	"m_importe1banco3textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2598,15 +2647,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -2628,11 +2677,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte1Banco3Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2707,7 +2763,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4454,
-													"proportion":	1,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2726,11 +2782,11 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
-													"m_styles":	["wxDP_DEFAULT"],
+													"m_styles":	["wxDP_ALLOWNONE", "wxDP_DEFAULT"],
 													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
 													"m_properties":	[{
 															"type":	"winid",
@@ -2747,7 +2803,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_vencimiento2banco3datePicker101"
+															"m_value":	"m_vencimiento2banco3datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2793,7 +2849,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2814,7 +2870,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importe2banco3textCtrl103"
+															"m_value":	"m_importe2banco3textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -2846,15 +2902,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -2876,11 +2932,18 @@
 															"m_label":	"Auto Complete Files:",
 															"m_value":	false
 														}],
-													"m_events":	[],
+													"m_events":	[{
+															"m_eventName":	"wxEVT_COMMAND_TEXT_UPDATED",
+															"m_eventClass":	"wxCommandEvent",
+															"m_eventHandler":	"wxCommandEventHandler",
+															"m_functionNameAndSignature":	"OnImporte2Banco3Updated(wxCommandEvent& event)",
+															"m_description":	"Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+															"m_noBody":	false
+														}],
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	4,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2955,7 +3018,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4454,
-													"proportion":	1,
+													"proportion":	2,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -2993,7 +3056,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3014,7 +3077,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importeTotalVencimientosTextCtrl133"
+															"m_value":	"m_importeTotalVencimientosTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -3030,7 +3093,7 @@
 														}, {
 															"type":	"font",
 															"m_label":	"Font:",
-															"m_value":	"wxSYS_DEFAULT_GUI_FONT,normal,bold,normal"
+															"m_value":	""
 														}, {
 															"type":	"bool",
 															"m_label":	"Hidden",
@@ -3046,15 +3109,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -3078,275 +3141,74 @@
 														}],
 													"m_events":	[],
 													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine135"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine137"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine139"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
-												}, {
-													"m_type":	4418,
-													"proportion":	0,
-													"border":	5,
-													"gbSpan":	"1,1",
-													"gbPosition":	"0,0",
-													"m_styles":	["wxLI_HORIZONTAL"],
-													"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
-													"m_properties":	[{
-															"type":	"winid",
-															"m_label":	"ID:",
-															"m_winid":	"wxID_ANY"
-														}, {
-															"type":	"string",
-															"m_label":	"Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Minimum Size:",
-															"m_value":	"-1,-1"
-														}, {
-															"type":	"string",
-															"m_label":	"Name:",
-															"m_value":	"m_staticLine141"
-														}, {
-															"type":	"multi-string",
-															"m_label":	"Tooltip:",
-															"m_value":	""
-														}, {
-															"type":	"colour",
-															"m_label":	"Bg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"colour",
-															"m_label":	"Fg Colour:",
-															"colour":	"<Default>"
-														}, {
-															"type":	"font",
-															"m_label":	"Font:",
-															"m_value":	""
-														}, {
-															"type":	"bool",
-															"m_label":	"Hidden",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Disabled",
-															"m_value":	false
-														}, {
-															"type":	"bool",
-															"m_label":	"Focused",
-															"m_value":	false
-														}, {
-															"type":	"string",
-															"m_label":	"Class Name:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Include File:",
-															"m_value":	""
-														}, {
-															"type":	"string",
-															"m_label":	"Style:",
-															"m_value":	""
-														}],
-													"m_events":	[],
-													"m_children":	[]
 												}]
+										}, {
+											"m_type":	4418,
+											"proportion":	0,
+											"border":	5,
+											"gbSpan":	"1,1",
+											"gbPosition":	"0,0",
+											"m_styles":	["wxLI_HORIZONTAL"],
+											"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+											"m_properties":	[{
+													"type":	"winid",
+													"m_label":	"ID:",
+													"m_winid":	"wxID_ANY"
+												}, {
+													"type":	"string",
+													"m_label":	"Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Minimum Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Name:",
+													"m_value":	"m_staticLine135"
+												}, {
+													"type":	"multi-string",
+													"m_label":	"Tooltip:",
+													"m_value":	""
+												}, {
+													"type":	"colour",
+													"m_label":	"Bg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"colour",
+													"m_label":	"Fg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"font",
+													"m_label":	"Font:",
+													"m_value":	""
+												}, {
+													"type":	"bool",
+													"m_label":	"Hidden",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Disabled",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Focused",
+													"m_value":	false
+												}, {
+													"type":	"string",
+													"m_label":	"Class Name:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Include File:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Style:",
+													"m_value":	""
+												}],
+											"m_events":	[],
+											"m_children":	[]
 										}, {
 											"m_type":	4403,
 											"proportion":	0,
@@ -3395,7 +3257,7 @@
 											"m_events":	[],
 											"m_children":	[{
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	3,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3470,7 +3332,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4454,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3489,7 +3351,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3510,7 +3372,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_totalPagaresEnCarteraTextCtrl113"
+															"m_value":	"m_totalPagaresEnCarteraTextCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -3526,7 +3388,7 @@
 														}, {
 															"type":	"font",
 															"m_label":	"Font:",
-															"m_value":	"wxSYS_DEFAULT_GUI_FONT,normal,bold,normal"
+															"m_value":	""
 														}, {
 															"type":	"bool",
 															"m_label":	"Hidden",
@@ -3542,15 +3404,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -3576,7 +3438,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	3,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3651,7 +3513,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3672,7 +3534,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_prevision1datePicker117"
+															"m_value":	"m_prevision1datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -3718,7 +3580,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3739,7 +3601,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importePrevision1textCtrl119"
+															"m_value":	"m_importePrevision1textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -3771,15 +3633,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -3805,7 +3667,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4405,
-													"proportion":	0,
+													"proportion":	3,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3880,7 +3742,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4433,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3901,7 +3763,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_prevision2datePicker123"
+															"m_value":	"m_prevision2datePicker"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -3947,7 +3809,7 @@
 													"m_children":	[]
 												}, {
 													"m_type":	4406,
-													"proportion":	0,
+													"proportion":	1,
 													"border":	5,
 													"gbSpan":	"1,1",
 													"gbPosition":	"0,0",
@@ -3968,7 +3830,7 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Name:",
-															"m_value":	"m_importePrevision2textCtrl125"
+															"m_value":	"m_importePrevision2textCtrl"
 														}, {
 															"type":	"multi-string",
 															"m_label":	"Tooltip:",
@@ -4000,15 +3862,15 @@
 														}, {
 															"type":	"string",
 															"m_label":	"Class Name:",
-															"m_value":	""
+															"m_value":	"wxTextCtrl"
 														}, {
 															"type":	"string",
 															"m_label":	"Include File:",
-															"m_value":	""
+															"m_value":	"globalVal.h"
 														}, {
 															"type":	"string",
 															"m_label":	"Style:",
-															"m_value":	""
+															"m_value":	"wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR)"
 														}, {
 															"type":	"string",
 															"m_label":	"Value:",
@@ -4033,6 +3895,73 @@
 													"m_events":	[],
 													"m_children":	[]
 												}]
+										}, {
+											"m_type":	4418,
+											"proportion":	0,
+											"border":	5,
+											"gbSpan":	"1,1",
+											"gbPosition":	"0,0",
+											"m_styles":	["wxLI_HORIZONTAL"],
+											"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+											"m_properties":	[{
+													"type":	"winid",
+													"m_label":	"ID:",
+													"m_winid":	"wxID_ANY"
+												}, {
+													"type":	"string",
+													"m_label":	"Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Minimum Size:",
+													"m_value":	"-1,-1"
+												}, {
+													"type":	"string",
+													"m_label":	"Name:",
+													"m_value":	"m_staticLine137"
+												}, {
+													"type":	"multi-string",
+													"m_label":	"Tooltip:",
+													"m_value":	""
+												}, {
+													"type":	"colour",
+													"m_label":	"Bg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"colour",
+													"m_label":	"Fg Colour:",
+													"colour":	"<Default>"
+												}, {
+													"type":	"font",
+													"m_label":	"Font:",
+													"m_value":	""
+												}, {
+													"type":	"bool",
+													"m_label":	"Hidden",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Disabled",
+													"m_value":	false
+												}, {
+													"type":	"bool",
+													"m_label":	"Focused",
+													"m_value":	false
+												}, {
+													"type":	"string",
+													"m_label":	"Class Name:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Include File:",
+													"m_value":	""
+												}, {
+													"type":	"string",
+													"m_label":	"Style:",
+													"m_value":	""
+												}],
+											"m_events":	[],
+											"m_children":	[]
 										}]
 								}]
 						}, {
@@ -4061,7 +3990,7 @@
 							"gbSpan":	"1,1",
 							"gbPosition":	"0,0",
 							"m_styles":	["wxLI_HORIZONTAL"],
-							"m_sizerFlags":	["wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+							"m_sizerFlags":	["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
 							"m_properties":	[{
 									"type":	"winid",
 									"m_label":	"ID:",
@@ -4234,7 +4163,14 @@
 											"m_label":	"Margins:",
 											"m_value":	"2,2"
 										}],
-									"m_events":	[],
+									"m_events":	[{
+											"m_eventName":	"wxEVT_COMMAND_BUTTON_CLICKED",
+											"m_eventClass":	"wxCommandEvent",
+											"m_eventHandler":	"wxCommandEventHandler",
+											"m_functionNameAndSignature":	"OnButtonOKClicked(wxCommandEvent& event)",
+											"m_description":	"Process a wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.",
+											"m_noBody":	false
+										}],
 									"m_children":	[]
 								}, {
 									"m_type":	4400,

@@ -3,6 +3,13 @@
 #include "MainDialog.h"
 #include <wx/image.h>
 
+// Clase con miembros estáticos para usar en los formularios que
+// usen wxValidator
+namespace GlobalVal
+{
+    float importe;
+}
+
 // Define the MainApp
 class MainApp : public wxApp
 {
@@ -11,6 +18,9 @@ public:
     virtual ~MainApp() {}
 
     virtual bool OnInit() {
+        // Set locale
+        //setlocale(LC_ALL, "C");
+        //wxLocale(wxLANGUAGE_SPANISH);
         // Add the common image handlers
         wxImage::AddHandler( new wxPNGHandler );
         wxImage::AddHandler( new wxJPEGHandler );
