@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Marcelino Gisbert
-Date                   :=04/16/16
+Date                   :=06/12/16
 CodeLitePath           :=/home/marcel/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -39,8 +39,8 @@ LinkOptions            :=  $(shell /home/marcel/dev/wx31/buildgtk3r/wx-config --
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := 
-ArLibs                 :=  
+Libs                   := $(LibrarySwitch)wxcode_gtk3u_pdfdoc-3.1 
+ArLibs                 :=  "libwxcode_gtk3u_pdfdoc-3.1" 
 LibPath                := $(LibraryPathSwitch). 
 
 ##
@@ -60,7 +60,8 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/wxcrafter.cpp$(ObjectSuffix) $(IntermediateDirectory)/wxcrafter_bitmaps.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainDialog.cpp$(ObjectSuffix) 
+LD_LIBRARY_PATH:=~/dev/wxpdfdoc-0.9.5/lib:$LD_LIBRARY_PATH
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/wxcrafter.cpp$(ObjectSuffix) $(IntermediateDirectory)/wxcrafter_bitmaps.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainDialog.cpp$(ObjectSuffix) $(IntermediateDirectory)/MyPdf.cpp$(ObjectSuffix) 
 
 
 
@@ -122,6 +123,14 @@ $(IntermediateDirectory)/MainDialog.cpp$(DependSuffix): MainDialog.cpp
 
 $(IntermediateDirectory)/MainDialog.cpp$(PreprocessSuffix): MainDialog.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/MainDialog.cpp$(PreprocessSuffix) "MainDialog.cpp"
+
+$(IntermediateDirectory)/MyPdf.cpp$(ObjectSuffix): MyPdf.cpp $(IntermediateDirectory)/MyPdf.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/marcel/dev/wxTest/wxMailPataleta/MyPdf.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/MyPdf.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/MyPdf.cpp$(DependSuffix): MyPdf.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/MyPdf.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/MyPdf.cpp$(DependSuffix) -MM "MyPdf.cpp"
+
+$(IntermediateDirectory)/MyPdf.cpp$(PreprocessSuffix): MyPdf.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/MyPdf.cpp$(PreprocessSuffix) "MyPdf.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -7,7 +7,6 @@ MyPdf::MyPdf()
 MyPdf::~MyPdf()
 {
 }
-
   // Page header
   void MyPdf::Header()
   {
@@ -33,4 +32,3 @@ MyPdf::~MyPdf()
     // Page number
     Cell(0,10,wxString::Format(wxT("Página %d/{nb}"),PageNo()),0,0,wxPDF_ALIGN_CENTER);
   }
-

@@ -3,7 +3,7 @@
 #include "MainDialog.h"
 #include <wx/image.h>
 
-// Clase con miembros estáticos para usar en los formularios que
+// Variables globales para usar en los formularios que
 // usen wxValidator
 namespace GlobalVal
 {
