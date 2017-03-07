@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Workspace Name="wxTest" Database="">
+<CodeLite_Workspace Name="wxTest" Database="" Version="10.0.0">
   <Project Name="wxHola" Path="wxHola/wxHola.project" Active="No"/>
   <Project Name="wxFuncionesMath" Path="wxFuncionesMath/wxFuncionesMath.project" Active="No"/>
   <Project Name="wxMailPataleta" Path="wxMailPataleta/wxMailPataleta.project" Active="Yes"/>
+  <Project Name="SendMail" Path="SendMail/SendMail.project" Active="No"/>
+  <Project Name="mgMailConsole" Path="mgMailConsole/mgMailConsole.project" Active="No"/>
+  <Project Name="wxSpyDirectory" Path="wxSpyDirectory/wxSpyDirectory.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="wxHola" ConfigName="Debug"/>
       <Project Name="wxFuncionesMath" ConfigName="Debug"/>
       <Project Name="wxMailPataleta" ConfigName="Debug"/>
+      <Project Name="SendMail" ConfigName="Debug"/>
+      <Project Name="mgMailConsole" ConfigName="Debug"/>
+      <Project Name="wxSpyDirectory" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="wxHola" ConfigName="Release"/>
       <Project Name="wxFuncionesMath" ConfigName="Release"/>
       <Project Name="wxMailPataleta" ConfigName="Release"/>
+      <Project Name="SendMail" ConfigName="Release"/>
+      <Project Name="mgMailConsole" ConfigName="Release"/>
+      <Project Name="wxSpyDirectory" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

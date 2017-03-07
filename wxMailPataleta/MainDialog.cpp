@@ -3,9 +3,14 @@
 #include <wx/log.h>
 #include "MyPdf.h"
 
+#ifndef wxHAS_IMAGES_IN_RESOURCES
+    #include "marce.xpm"
+#endif
+
 MainDialog::MainDialog(wxWindow* parent)
     : MainDialogBaseClass(parent)
 {
+    SetIcon(wxICON(marce));
 }
 
 MainDialog::~MainDialog()
@@ -82,6 +87,8 @@ void MainDialog::CreatePdf()
     int diaP2 = fechaP2.GetDay();
     int mesP2 = fechaP2.GetMonth() + 1;
     int anyoP2 = fechaP2.GetYear();
+    if (!isOK)
+        wxMessageBox(wxT("No he podido convertir algún dato"));
     isOK = true;
 
     // Set locale from OS
@@ -263,7 +270,9 @@ void MainDialog::CreatePdf()
     
     // Restore locale C
     setlocale(LC_ALL, "C");
-    //Close();
+    
+    // Abrir pdf con el visor por defecto del sistema
+    
 }
 
 void MainDialog::OnCreditoCobradoUpdated(wxCommandEvent& event)
@@ -289,6 +298,8 @@ void MainDialog::UpdateSaldoFinal()
     isOK = m_saldoAnteriorTextCtrl->GetValue().ToDouble(&tmpSaldoInicial);
     isOK = m_creditoConcedidoTextCtrl->GetValue().ToDouble(&tmpCreditoConcedido);
     isOK = m_creditoCobradoTextCtrl->GetValue().ToDouble(&tmpCreditoCobrado);
+    if (!isOK)
+        wxMessageBox(wxT("No he podido convertir algún dato"));
     tmpSaldoFinal = tmpSaldoInicial + tmpCreditoConcedido - tmpCreditoCobrado;
     wxString txtSaldoFinal( wxString::Format(wxT("%'14.2f"), tmpSaldoFinal) );
     m_saldoFinalTextCtrl->SetValue(txtSaldoFinal);
@@ -335,6 +346,8 @@ void MainDialog::UpdateTotalPagos()
     isOK = m_importe2banco2textCtrl->GetValue().ToDouble(&tmpImp2B2);
     isOK = m_importe1banco3textCtrl->GetValue().ToDouble(&tmpImp1B3);
     isOK = m_importe2banco3textCtrl->GetValue().ToDouble(&tmpImp2B3);
+    if (!isOK)
+        wxMessageBox(wxT("No he podido convertir algún dato"));
     tmpTotal = tmpImp1B1 + tmpImp2B1 + tmpImp1B2 + tmpImp2B2 + tmpImp1B3 + tmpImp2B3;
     wxString txtTotal( wxString::Format(wxT("%'14.2f"), tmpTotal) );
     m_importeTotalVencimientosTextCtrl->SetValue(txtTotal);
