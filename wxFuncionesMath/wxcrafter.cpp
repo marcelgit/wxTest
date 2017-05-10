@@ -26,9 +26,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* boxSizer1 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer1);
     
-    m_mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer1->Add(m_mainPanel, 1, wxEXPAND, 5);
+    boxSizer1->Add(m_mainPanel, 1, wxEXPAND, WXC_FROM_DIP(5));
     
     m_menuBar = new wxMenuBar(0);
     this->SetMenuBar(m_menuBar);
@@ -116,85 +116,85 @@ TrigonometricasBaseClass::TrigonometricasBaseClass(wxWindow* parent, wxWindowID 
     wxBoxSizer* boxSizer17 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer17);
     
-    m_panel19 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel19 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer17->Add(m_panel19, 1, wxALL|wxEXPAND, 5);
+    boxSizer17->Add(m_panel19, 1, wxEXPAND, WXC_FROM_DIP(5));
     
     wxGridSizer* gridSizer21 = new wxGridSizer(8, 2, 0, 0);
     m_panel19->SetSizer(gridSizer21);
     
-    m_staticText23 = new wxStaticText(m_panel19, wxID_ANY, _("Para un angulo de grados"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText23 = new wxStaticText(m_panel19, wxID_ANY, _("Para un angulo de grados"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText23, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5);
+    gridSizer21->Add(m_staticText23, 0, wxALL|wxALIGN_CENTER_VERTICAL, WXC_FROM_DIP(5));
     
-    m_spinCtrl_Angulo = new wxSpinCtrl(m_panel19, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(-1,-1), wxSP_WRAP|wxSP_ARROW_KEYS);
+    m_spinCtrl_Angulo = new wxSpinCtrl(m_panel19, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), wxSP_WRAP|wxSP_ARROW_KEYS);
     m_spinCtrl_Angulo->SetToolTip(_("Introducir un angulo en grados"));
     m_spinCtrl_Angulo->SetRange(0, 360);
     m_spinCtrl_Angulo->SetValue(0);
     
-    gridSizer21->Add(m_spinCtrl_Angulo, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5);
+    gridSizer21->Add(m_spinCtrl_Angulo, 1, wxALL|wxALIGN_CENTER_VERTICAL, WXC_FROM_DIP(5));
     
-    m_staticText_sin_lbl = new wxStaticText(m_panel19, wxID_ANY, _("sin()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sin_lbl = new wxStaticText(m_panel19, wxID_ANY, _("sin()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_sin_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_sin_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_sin_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sin_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_sin_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_sin_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_cos_lbl = new wxStaticText(m_panel19, wxID_ANY, _("cos()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_cos_lbl = new wxStaticText(m_panel19, wxID_ANY, _("cos()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_cos_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_cos_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_cos_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_cos_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_cos_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_cos_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_tan_lbl = new wxStaticText(m_panel19, wxID_ANY, _("tan()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_tan_lbl = new wxStaticText(m_panel19, wxID_ANY, _("tan()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_tan_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_tan_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_tan_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_tan_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_tan_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_tan_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_asin_lbl = new wxStaticText(m_panel19, wxID_ANY, _("asin()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_asin_lbl = new wxStaticText(m_panel19, wxID_ANY, _("asin()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_asin_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_asin_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_asin_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_asin_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_asin_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_asin_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_acos_lbl = new wxStaticText(m_panel19, wxID_ANY, _("acos()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_acos_lbl = new wxStaticText(m_panel19, wxID_ANY, _("acos()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_acos_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_acos_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_acos_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_acos_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_acos_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_acos_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_atan_lbl = new wxStaticText(m_panel19, wxID_ANY, _("atan()"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_atan_lbl = new wxStaticText(m_panel19, wxID_ANY, _("atan()"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_atan_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_atan_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_atan_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_atan_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_atan_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_atan_value, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_atan2_lbl = new wxStaticText(m_panel19, wxID_ANY, _("atan(x/2)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_atan2_lbl = new wxStaticText(m_panel19, wxID_ANY, _("atan(x/2)"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_atan2_lbl, 0, wxALL, 5);
+    gridSizer21->Add(m_staticText_atan2_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_atan2_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_atan2_value = new wxStaticText(m_panel19, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel19, wxSize(-1,-1)), 0);
     
-    gridSizer21->Add(m_staticText_atan2_value, 1, wxALL, 5);
+    gridSizer21->Add(m_staticText_atan2_value, 1, wxALL, WXC_FROM_DIP(5));
     
     m_stdBtnSizer55 = new wxStdDialogButtonSizer();
     
-    boxSizer17->Add(m_stdBtnSizer55, 0, wxALL|wxEXPAND|wxALIGN_RIGHT, 5);
+    boxSizer17->Add(m_stdBtnSizer55, 0, wxALIGN_RIGHT, WXC_FROM_DIP(5));
     
-    m_button_CLOSE = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_button_CLOSE = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer55->AddButton(m_button_CLOSE);
     m_stdBtnSizer55->Realize();
     
@@ -241,70 +241,70 @@ ExponencialesBaseClass::ExponencialesBaseClass(wxWindow* parent, wxWindowID id, 
     wxBoxSizer* boxSizer61 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer61);
     
-    m_panel63 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel63 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer61->Add(m_panel63, 1, wxALL|wxEXPAND, 5);
+    boxSizer61->Add(m_panel63, 1, wxEXPAND, WXC_FROM_DIP(5));
     
     wxGridSizer* gridSizer69 = new wxGridSizer(5, 2, 0, 0);
     m_panel63->SetSizer(gridSizer69);
     
-    m_staticText_argu_x = new wxStaticText(m_panel63, wxID_ANY, _("Argumento x de la funcion que lo requiera"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_argu_x = new wxStaticText(m_panel63, wxID_ANY, _("Argumento x de la funcion que lo requiera"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     
-    gridSizer69->Add(m_staticText_argu_x, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_argu_x, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrl_argu_x = new wxTextCtrl(m_panel63, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrl_argu_x = new wxTextCtrl(m_panel63, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrl_argu_x->SetHint(wxT(""));
     #endif
     
-    gridSizer69->Add(m_textCtrl_argu_x, 0, wxALL, 5);
+    gridSizer69->Add(m_textCtrl_argu_x, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_argu_y = new wxStaticText(m_panel63, wxID_ANY, _("Argumento y de la funcion que lo requiera"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_argu_y = new wxStaticText(m_panel63, wxID_ANY, _("Argumento y de la funcion que lo requiera"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     
-    gridSizer69->Add(m_staticText_argu_y, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_argu_y, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrl_argu_y = new wxTextCtrl(m_panel63, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrl_argu_y = new wxTextCtrl(m_panel63, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrl_argu_y->SetHint(wxT(""));
     #endif
     
-    gridSizer69->Add(m_textCtrl_argu_y, 0, wxALL, 5);
+    gridSizer69->Add(m_textCtrl_argu_y, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_exp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double exp(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_exp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double exp(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     m_staticText_exp_lbl->SetToolTip(_("Regresa el exponente natural del argumento x"));
     
-    gridSizer69->Add(m_staticText_exp_lbl, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_exp_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_exp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_exp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     
-    gridSizer69->Add(m_staticText_exp_res, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_exp_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_frexp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double frexp(double x, int *y)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_frexp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double frexp(double x, int *y)"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     m_staticText_frexp_lbl->SetToolTip(_("Calcula la funcion normalizada"));
     
-    gridSizer69->Add(m_staticText_frexp_lbl, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_frexp_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_frexp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_frexp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     
-    gridSizer69->Add(m_staticText_frexp_res, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_frexp_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_ldexp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double ldexp(double x, int y)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_ldexp_lbl = new wxStaticText(m_panel63, wxID_ANY, _("double ldexp(double x, int y)"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     m_staticText_ldexp_lbl->SetToolTip(_("Regresa x * 2y"));
     
-    gridSizer69->Add(m_staticText_ldexp_lbl, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_ldexp_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_ldexp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_ldexp_res = new wxStaticText(m_panel63, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel63, wxSize(-1,-1)), 0);
     
-    gridSizer69->Add(m_staticText_ldexp_res, 0, wxALL, 5);
+    gridSizer69->Add(m_staticText_ldexp_res, 0, wxALL, WXC_FROM_DIP(5));
     
     m_stdBtnSizer65 = new wxStdDialogButtonSizer();
     
-    boxSizer61->Add(m_stdBtnSizer65, 0, wxALL|wxALIGN_RIGHT, 5);
+    boxSizer61->Add(m_stdBtnSizer65, 0, wxALL|wxALIGN_RIGHT, WXC_FROM_DIP(5));
     
-    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer65->AddButton(m_buttonClose);
     
-    m_buttonApply = new wxButton(this, wxID_APPLY, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_buttonApply = new wxButton(this, wxID_APPLY, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_buttonApply->SetToolTip(_("Calcula el resultado de las funciones."));
     m_buttonApply->SetToolTip(_("Calcula el resultado de las funciones."));
     m_stdBtnSizer65->AddButton(m_buttonApply);
@@ -353,45 +353,45 @@ LogaritmicasBaseClass::LogaritmicasBaseClass(wxWindow* parent, wxWindowID id, co
     wxBoxSizer* boxSizer95 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer95);
     
-    m_panel97 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel97 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer95->Add(m_panel97, 0, wxALL, 5);
+    boxSizer95->Add(m_panel97, 0, 0, WXC_FROM_DIP(5));
     
     wxGridSizer* gridSizer103 = new wxGridSizer(3, 2, 0, 0);
     m_panel97->SetSizer(gridSizer103);
     
-    m_staticText_argu = new wxStaticText(m_panel97, wxID_ANY, _("Argumento de la funcion"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_argu = new wxStaticText(m_panel97, wxID_ANY, _("Argumento de la funcion"), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     
-    gridSizer103->Add(m_staticText_argu, 0, wxALL, 5);
+    gridSizer103->Add(m_staticText_argu, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrl_argu = new wxTextCtrl(m_panel97, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrl_argu = new wxTextCtrl(m_panel97, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrl_argu->SetHint(wxT(""));
     #endif
     
-    gridSizer103->Add(m_textCtrl_argu, 0, wxALL, 5);
+    gridSizer103->Add(m_textCtrl_argu, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_log_lbl = new wxStaticText(m_panel97, wxID_ANY, _("double log(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_log_lbl = new wxStaticText(m_panel97, wxID_ANY, _("double log(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     
-    gridSizer103->Add(m_staticText_log_lbl, 0, wxALL, 5);
+    gridSizer103->Add(m_staticText_log_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_log_res = new wxStaticText(m_panel97, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_log_res = new wxStaticText(m_panel97, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     
-    gridSizer103->Add(m_staticText_log_res, 0, wxALL, 5);
+    gridSizer103->Add(m_staticText_log_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_log10_lbl = new wxStaticText(m_panel97, wxID_ANY, _("double log10(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_log10_lbl = new wxStaticText(m_panel97, wxID_ANY, _("double log10(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     
-    gridSizer103->Add(m_staticText_log10_lbl, 0, wxALL, 5);
+    gridSizer103->Add(m_staticText_log10_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_log10_res = new wxStaticText(m_panel97, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_log10_res = new wxStaticText(m_panel97, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel97, wxSize(-1,-1)), 0);
     
-    gridSizer103->Add(m_staticText_log10_res, 0, wxALL, 5);
+    gridSizer103->Add(m_staticText_log10_res, 0, wxALL, WXC_FROM_DIP(5));
     
     m_stdBtnSizer99 = new wxStdDialogButtonSizer();
     
-    boxSizer95->Add(m_stdBtnSizer99, 0, wxALL|wxALIGN_RIGHT, 5);
+    boxSizer95->Add(m_stdBtnSizer99, 0, wxALL|wxALIGN_RIGHT, WXC_FROM_DIP(5));
     
-    m_button101 = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_button101 = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer99->AddButton(m_button101);
     m_stdBtnSizer99->Realize();
     
@@ -438,53 +438,53 @@ HiperbolicasBaseClass::HiperbolicasBaseClass(wxWindow* parent, wxWindowID id, co
     wxBoxSizer* boxSizer121 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer121);
     
-    m_panel123 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel123 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer121->Add(m_panel123, 0, wxALL, 5);
+    boxSizer121->Add(m_panel123, 0, 0, WXC_FROM_DIP(5));
     
     wxGridSizer* gridSizer125 = new wxGridSizer(4, 2, 0, 0);
     m_panel123->SetSizer(gridSizer125);
     
-    m_staticText135 = new wxStaticText(m_panel123, wxID_ANY, _("Argumento de la funcion"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText135 = new wxStaticText(m_panel123, wxID_ANY, _("Argumento de la funcion"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText135, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText135, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrl_argu = new wxTextCtrl(m_panel123, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrl_argu = new wxTextCtrl(m_panel123, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrl_argu->SetHint(wxT(""));
     #endif
     
-    gridSizer125->Add(m_textCtrl_argu, 0, wxALL, 5);
+    gridSizer125->Add(m_textCtrl_argu, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_cosh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double cosh(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_cosh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double cosh(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_cosh_lbl, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_cosh_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_cosh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_cosh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_cosh_res, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_cosh_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_sinh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double sinh(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sinh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double sinh(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_sinh_lbl, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_sinh_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_sinh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sinh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_sinh_res, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_sinh_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_tanh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double tanh(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_tanh_lbl = new wxStaticText(m_panel123, wxID_ANY, _("double tanh(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_tanh_lbl, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_tanh_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_tanh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_tanh_res = new wxStaticText(m_panel123, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel123, wxSize(-1,-1)), 0);
     
-    gridSizer125->Add(m_staticText_tanh_res, 0, wxALL, 5);
+    gridSizer125->Add(m_staticText_tanh_res, 0, wxALL, WXC_FROM_DIP(5));
     
     m_stdBtnSizer131 = new wxStdDialogButtonSizer();
     
-    boxSizer121->Add(m_stdBtnSizer131, 0, wxALL|wxALIGN_RIGHT, 5);
+    boxSizer121->Add(m_stdBtnSizer131, 0, wxALL|wxALIGN_RIGHT, WXC_FROM_DIP(5));
     
-    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer131->AddButton(m_buttonClose);
     m_stdBtnSizer131->Realize();
     
@@ -531,107 +531,107 @@ OtrasBaseClass::OtrasBaseClass(wxWindow* parent, wxWindowID id, const wxString& 
     wxBoxSizer* boxSizer157 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer157);
     
-    m_panel159 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel159 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    boxSizer157->Add(m_panel159, 0, wxALL, 5);
+    boxSizer157->Add(m_panel159, 0, 0, WXC_FROM_DIP(5));
     
     wxGridSizer* gridSizer167 = new wxGridSizer(10, 2, 0, 0);
     m_panel159->SetSizer(gridSizer167);
     
-    m_staticText169 = new wxStaticText(m_panel159, wxID_ANY, _("Argumento x"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText169 = new wxStaticText(m_panel159, wxID_ANY, _("Argumento x"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText169, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText169, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrlArgu_x = new wxTextCtrl(m_panel159, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrlArgu_x = new wxTextCtrl(m_panel159, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrlArgu_x->SetHint(wxT(""));
     #endif
     
-    gridSizer167->Add(m_textCtrlArgu_x, 0, wxALL, 5);
+    gridSizer167->Add(m_textCtrlArgu_x, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText173 = new wxStaticText(m_panel159, wxID_ANY, _("Argumento y"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText173 = new wxStaticText(m_panel159, wxID_ANY, _("Argumento y"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText173, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText173, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_textCtrlArgu_y = new wxTextCtrl(m_panel159, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_textCtrlArgu_y = new wxTextCtrl(m_panel159, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     #if wxVERSION_NUMBER >= 3000
     m_textCtrlArgu_y->SetHint(wxT(""));
     #endif
     
-    gridSizer167->Add(m_textCtrlArgu_y, 0, wxALL, 5);
+    gridSizer167->Add(m_textCtrlArgu_y, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_sqrt_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double sqrt(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sqrt_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double sqrt(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_sqrt_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_sqrt_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_sqrt_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_sqrt_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_sqrt_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_sqrt_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_ceil_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double ceil(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_ceil_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double ceil(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_ceil_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_ceil_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_ceil_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_ceil_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_ceil_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_ceil_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_abs_lbl = new wxStaticText(m_panel159, wxID_ANY, _("int abs(int x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_abs_lbl = new wxStaticText(m_panel159, wxID_ANY, _("int abs(int x)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_abs_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_abs_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_abs_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_abs_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_abs_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_abs_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_labs_lbl = new wxStaticText(m_panel159, wxID_ANY, _("long int labs(long int x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_labs_lbl = new wxStaticText(m_panel159, wxID_ANY, _("long int labs(long int x)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_labs_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_labs_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_labs_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_labs_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_labs_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_labs_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_floor_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double floor(double x)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_floor_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double floor(double x)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_floor_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_floor_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_floor_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_floor_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_floor_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_floor_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_modf_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double modf(double x, double *y)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_modf_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double modf(double x, double *y)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_modf_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_modf_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_modf_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_modf_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_modf_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_modf_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_pow_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double pow(double x, double y)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_pow_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double pow(double x, double y)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_pow_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_pow_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_pow_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_pow_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_pow_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_pow_res, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_fmod_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double fmod(double x, double y)"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_fmod_lbl = new wxStaticText(m_panel159, wxID_ANY, _("double fmod(double x, double y)"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_fmod_lbl, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_fmod_lbl, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText_fmod_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText_fmod_res = new wxStaticText(m_panel159, wxID_ANY, _("0"), wxDefaultPosition, wxDLG_UNIT(m_panel159, wxSize(-1,-1)), 0);
     
-    gridSizer167->Add(m_staticText_fmod_res, 0, wxALL, 5);
+    gridSizer167->Add(m_staticText_fmod_res, 0, wxALL, WXC_FROM_DIP(5));
     
     m_stdBtnSizer161 = new wxStdDialogButtonSizer();
     
-    boxSizer157->Add(m_stdBtnSizer161, 0, wxALL|wxALIGN_RIGHT, 5);
+    boxSizer157->Add(m_stdBtnSizer161, 0, wxALL|wxALIGN_RIGHT, WXC_FROM_DIP(5));
     
-    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_buttonClose = new wxButton(this, wxID_CLOSE, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer161->AddButton(m_buttonClose);
     
-    m_buttonApply = new wxButton(this, wxID_APPLY, wxT(""), wxDefaultPosition, wxSize(-1, -1), 0);
+    m_buttonApply = new wxButton(this, wxID_APPLY, wxT(""), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1, -1)), 0);
     m_stdBtnSizer161->AddButton(m_buttonApply);
     m_stdBtnSizer161->Realize();
     

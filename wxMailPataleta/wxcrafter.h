@@ -4,8 +4,8 @@
 // Do not modify this file by hand!
 //////////////////////////////////////////////////////////////////////
 
-#ifndef WXTEST_WXMAILPATALETA_WXCRAFTER_BASE_CLASSES_H
-#define WXTEST_WXMAILPATALETA_WXCRAFTER_BASE_CLASSES_H
+#ifndef _WXTEST_WXMAILPATALETA_WXCRAFTER_BASE_CLASSES_H
+#define _WXTEST_WXMAILPATALETA_WXCRAFTER_BASE_CLASSES_H
 
 #include <wx/settings.h>
 #include <wx/xrc/xmlres.h>
@@ -27,6 +27,16 @@
 #include <wx/persist/bookctrl.h>
 #include <wx/persist/treebook.h>
 #endif
+
+#ifdef WXC_FROM_DIP
+#undef WXC_FROM_DIP
+#endif
+#if wxVERSION_NUMBER >= 3100
+#define WXC_FROM_DIP(x) wxWindow::FromDIP(x, NULL)
+#else
+#define WXC_FROM_DIP(x) x
+#endif
+
 
 class MainDialogBaseClass : public wxDialog
 {
@@ -78,9 +88,11 @@ protected:
     wxStaticLine* m_staticLine137;
     wxStaticLine* m_staticLine15;
     wxButton* m_buttonOK;
+    wxButton* m_buttonSEND;
     wxButton* m_buttonCancel;
 
 protected:
+    virtual void OnInitDialog(wxInitDialogEvent& event) { event.Skip(); }
     virtual void OnSaldoAnteriorUpdated(wxCommandEvent& event) { event.Skip(); }
     virtual void OnCreditoConcedidoUpdated(wxCommandEvent& event) { event.Skip(); }
     virtual void OnCreditoCobradoUpdated(wxCommandEvent& event) { event.Skip(); }
@@ -91,6 +103,7 @@ protected:
     virtual void OnImporte1Banco3Updated(wxCommandEvent& event) { event.Skip(); }
     virtual void OnImporte2Banco3Updated(wxCommandEvent& event) { event.Skip(); }
     virtual void OnButtonOKClicked(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnButtonSendClicked(wxCommandEvent& event) { event.Skip(); }
 
 public:
     wxDatePickerCtrl* GetFechaInformeDatePicker() { return m_fechaInformeDatePicker; }
@@ -140,8 +153,9 @@ public:
     wxPanel* GetPanel17() { return m_panel17; }
     wxStaticLine* GetStaticLine15() { return m_staticLine15; }
     wxButton* GetButtonOK() { return m_buttonOK; }
+    wxButton* GetButtonSEND() { return m_buttonSEND; }
     wxButton* GetButtonCancel() { return m_buttonCancel; }
-    MainDialogBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Previsión de tesorería"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(600,500), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER);
+    MainDialogBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Previsión de tesorería"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(600,500), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL);
     virtual ~MainDialogBaseClass();
 };
 

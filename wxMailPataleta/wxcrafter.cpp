@@ -26,77 +26,77 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(mainSizer);
     
-    m_panel17 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    m_panel17 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxTAB_TRAVERSAL);
     
-    mainSizer->Add(m_panel17, 0, wxALL, 5);
+    mainSizer->Add(m_panel17, 0, wxALL, WXC_FROM_DIP(5));
     
     wxBoxSizer* boxSizer19 = new wxBoxSizer(wxVERTICAL);
     m_panel17->SetSizer(boxSizer19);
     
-    m_fechaInformeDatePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_DEFAULT);
+    m_fechaInformeDatePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT|wxTAB_TRAVERSAL);
     m_fechaInformeDatePicker->SetToolTip(wxT("Fecha del comunicado"));
     
-    boxSizer19->Add(m_fechaInformeDatePicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
+    boxSizer19->Add(m_fechaInformeDatePicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, WXC_FROM_DIP(5));
     
-    m_staticLine51 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxLI_HORIZONTAL);
+    m_staticLine51 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxLI_HORIZONTAL);
     
-    boxSizer19->Add(m_staticLine51, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(m_staticLine51, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
     wxFlexGridSizer* flexGridSizer25 = new wxFlexGridSizer(4, 2, 0, 0);
     flexGridSizer25->SetFlexibleDirection( wxBOTH );
     flexGridSizer25->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     flexGridSizer25->AddGrowableCol(0);
     
-    boxSizer19->Add(flexGridSizer25, 1, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(flexGridSizer25, 1, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
-    m_staticText27 = new wxStaticText(m_panel17, wxID_ANY, wxT("Saldo anterior de clientes"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText27 = new wxStaticText(m_panel17, wxID_ANY, wxT("Saldo anterior de clientes"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer25->Add(m_staticText27, 4, wxALL, 5);
+    flexGridSizer25->Add(m_staticText27, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_saldoAnteriorTextCtrl->SetToolTip(wxT("Es el saldo pendiente de clientes hasta ayer."));
     #if wxVERSION_NUMBER >= 3000
     m_saldoAnteriorTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer25->Add(m_saldoAnteriorTextCtrl, 1, wxALL, 5);
+    flexGridSizer25->Add(m_saldoAnteriorTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText31 = new wxStaticText(m_panel17, wxID_ANY, wxT("Crédito concedido hoy"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText31 = new wxStaticText(m_panel17, wxID_ANY, wxT("Crédito concedido hoy"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer25->Add(m_staticText31, 4, wxALL, 5);
+    flexGridSizer25->Add(m_staticText31, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_creditoConcedidoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoConcedidoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_creditoConcedidoTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer25->Add(m_creditoConcedidoTextCtrl, 1, wxALL, 5);
+    flexGridSizer25->Add(m_creditoConcedidoTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText35 = new wxStaticText(m_panel17, wxID_ANY, wxT("Crédito anterior cobrado hoy"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText35 = new wxStaticText(m_panel17, wxID_ANY, wxT("Crédito anterior cobrado hoy"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer25->Add(m_staticText35, 4, wxALL, 5);
+    flexGridSizer25->Add(m_staticText35, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_creditoCobradoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoCobradoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_creditoCobradoTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer25->Add(m_creditoCobradoTextCtrl, 1, wxALL, 5);
+    flexGridSizer25->Add(m_creditoCobradoTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText39 = new wxStaticText(m_panel17, wxID_ANY, wxT("Saldo final de hoy"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText39 = new wxStaticText(m_panel17, wxID_ANY, wxT("Saldo final de hoy"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer25->Add(m_staticText39, 4, wxALL, 5);
+    flexGridSizer25->Add(m_staticText39, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_saldoFinalTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoFinalTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_saldoFinalTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer25->Add(m_saldoFinalTextCtrl, 1, wxALL, 5);
+    flexGridSizer25->Add(m_saldoFinalTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticLine53 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxLI_HORIZONTAL);
+    m_staticLine53 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxLI_HORIZONTAL);
     
-    boxSizer19->Add(m_staticLine53, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(m_staticLine53, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
     wxFlexGridSizer* flexGridSizer49 = new wxFlexGridSizer(7, 4, 0, 0);
     flexGridSizer49->SetFlexibleDirection( wxBOTH );
@@ -104,228 +104,232 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     flexGridSizer49->AddGrowableCol(0);
     flexGridSizer49->AddGrowableCol(1);
     
-    boxSizer19->Add(flexGridSizer49, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(flexGridSizer49, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
-    m_staticText55 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText55 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText55, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText55, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
     m_banco1textCtrl->SetToolTip(wxT("Nombre del primer banco del vencimiento más próximo"));
     #if wxVERSION_NUMBER >= 3000
     m_banco1textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_banco1textCtrl, 2, wxALL, 5);
+    flexGridSizer49->Add(m_banco1textCtrl, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento1banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento1banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     m_vencimiento1banco1datePicker->SetToolTip(wxT("Fecha de vencimiento más próximo del primer banco"));
     
-    flexGridSizer49->Add(m_vencimiento1banco1datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento1banco1datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe1banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe1banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_importe1banco1textCtrl->SetToolTip(wxT("Importe del vencimiento más próximo del primer banco"));
     #if wxVERSION_NUMBER >= 3000
     m_importe1banco1textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe1banco1textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe1banco1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText63 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText63 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText63, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText63, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, 5);
+    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento2banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento2banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     
-    flexGridSizer49->Add(m_vencimiento2banco1datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento2banco1datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe2banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe2banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importe2banco1textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe2banco1textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe2banco1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText73 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText73 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText73, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText73, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
     m_banco2textCtrl->SetToolTip(wxT("Segundo banco con un vencimiento pendiente"));
     #if wxVERSION_NUMBER >= 3000
     m_banco2textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_banco2textCtrl, 2, wxALL, 5);
+    flexGridSizer49->Add(m_banco2textCtrl, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento1banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento1banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     
-    flexGridSizer49->Add(m_vencimiento1banco2datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento1banco2datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe1banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe1banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importe1banco2textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe1banco2textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe1banco2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText81 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText81 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText81, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText81, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, 5);
+    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento2banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento2banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     
-    flexGridSizer49->Add(m_vencimiento2banco2datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento2banco2datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe2banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe2banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importe2banco2textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe2banco2textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe2banco2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText89 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText89 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText89, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText89, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
     m_banco3textCtrl->SetToolTip(wxT("Tercer banco con vencimientos pendientes"));
     #if wxVERSION_NUMBER >= 3000
     m_banco3textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_banco3textCtrl, 2, wxALL, 5);
+    flexGridSizer49->Add(m_banco3textCtrl, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento1banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento1banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     
-    flexGridSizer49->Add(m_vencimiento1banco3datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento1banco3datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe1banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe1banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importe1banco3textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe1banco3textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe1banco3textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText97 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText97 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer49->Add(m_staticText97, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText97, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, 5);
+    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento2banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_vencimiento2banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
     
-    flexGridSizer49->Add(m_vencimiento2banco3datePicker, 1, wxALL, 5);
+    flexGridSizer49->Add(m_vencimiento2banco3datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe2banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe2banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importe2banco3textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe2banco3textCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importe2banco3textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText127 = new wxStaticText(m_panel17, wxID_ANY, wxT("Suma total de pagos pendientes"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText127 = new wxStaticText(m_panel17, wxID_ANY, wxT("Suma total de pagos pendientes"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     wxFont m_staticText127Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
     m_staticText127Font.SetWeight(wxFONTWEIGHT_BOLD);
     m_staticText127->SetFont(m_staticText127Font);
     
-    flexGridSizer49->Add(m_staticText127, 4, wxALL, 5);
+    flexGridSizer49->Add(m_staticText127, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, 5);
+    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 1, wxALL, 5);
+    flexGridSizer49->Add(0, 0, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importeTotalVencimientosTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importeTotalVencimientosTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importeTotalVencimientosTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importeTotalVencimientosTextCtrl, 1, wxALL, 5);
+    flexGridSizer49->Add(m_importeTotalVencimientosTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticLine135 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxLI_HORIZONTAL);
+    m_staticLine135 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxLI_HORIZONTAL);
     
-    boxSizer19->Add(m_staticLine135, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(m_staticLine135, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
     wxFlexGridSizer* flexGridSizer107 = new wxFlexGridSizer(3, 3, 0, 0);
     flexGridSizer107->SetFlexibleDirection( wxBOTH );
     flexGridSizer107->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     flexGridSizer107->AddGrowableCol(0);
     
-    boxSizer19->Add(flexGridSizer107, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(flexGridSizer107, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
-    m_staticText109 = new wxStaticText(m_panel17, wxID_ANY, wxT("Total en pagarés de clientes en cartera"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText109 = new wxStaticText(m_panel17, wxID_ANY, wxT("Total en pagarés de clientes en cartera"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     wxFont m_staticText109Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
     m_staticText109Font.SetWeight(wxFONTWEIGHT_BOLD);
     m_staticText109->SetFont(m_staticText109Font);
     
-    flexGridSizer107->Add(m_staticText109, 3, wxALL, 5);
+    flexGridSizer107->Add(m_staticText109, 3, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer107->Add(0, 0, 1, wxALL, 5);
+    flexGridSizer107->Add(0, 0, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_totalPagaresEnCarteraTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_totalPagaresEnCarteraTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_totalPagaresEnCarteraTextCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer107->Add(m_totalPagaresEnCarteraTextCtrl, 1, wxALL, 5);
+    flexGridSizer107->Add(m_totalPagaresEnCarteraTextCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText115 = new wxStaticText(m_panel17, wxID_ANY, wxT("Previsión de cobro hasta"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText115 = new wxStaticText(m_panel17, wxID_ANY, wxT("Previsión de cobro hasta"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer107->Add(m_staticText115, 3, wxALL, 5);
+    flexGridSizer107->Add(m_staticText115, 3, wxALL, WXC_FROM_DIP(5));
     
-    m_prevision1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_DEFAULT);
+    m_prevision1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT);
     
-    flexGridSizer107->Add(m_prevision1datePicker, 1, wxALL, 5);
+    flexGridSizer107->Add(m_prevision1datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importePrevision1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importePrevision1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_importePrevision1textCtrl->SetToolTip(wxT("Importe de los pagarés hasta la fecha"));
     #if wxVERSION_NUMBER >= 3000
     m_importePrevision1textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer107->Add(m_importePrevision1textCtrl, 1, wxALL, 5);
+    flexGridSizer107->Add(m_importePrevision1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticText121 = new wxStaticText(m_panel17, wxID_ANY, wxT("Previsión hasta"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_staticText121 = new wxStaticText(m_panel17, wxID_ANY, wxT("Previsión hasta"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
-    flexGridSizer107->Add(m_staticText121, 3, wxALL, 5);
+    flexGridSizer107->Add(m_staticText121, 3, wxALL, WXC_FROM_DIP(5));
     
-    m_prevision2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize(-1,-1), wxDP_DEFAULT);
+    m_prevision2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT);
     
-    flexGridSizer107->Add(m_prevision2datePicker, 1, wxALL, 5);
+    flexGridSizer107->Add(m_prevision2datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importePrevision2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(-1,-1), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importePrevision2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
     #if wxVERSION_NUMBER >= 3000
     m_importePrevision2textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer107->Add(m_importePrevision2textCtrl, 1, wxALL, 5);
+    flexGridSizer107->Add(m_importePrevision2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_staticLine137 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxLI_HORIZONTAL);
+    m_staticLine137 = new wxStaticLine(m_panel17, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxLI_HORIZONTAL);
     
-    boxSizer19->Add(m_staticLine137, 0, wxALL|wxEXPAND, 5);
+    boxSizer19->Add(m_staticLine137, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
-    mainSizer->Add(0, 0, 1, wxALL|wxEXPAND, 5);
+    mainSizer->Add(0, 0, 1, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
-    m_staticLine15 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxLI_HORIZONTAL);
+    m_staticLine15 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), wxLI_HORIZONTAL);
     
-    mainSizer->Add(m_staticLine15, 0, wxALL|wxEXPAND, 5);
+    mainSizer->Add(m_staticLine15, 0, wxALL|wxEXPAND, WXC_FROM_DIP(5));
     
     wxBoxSizer* boxSizer12 = new wxBoxSizer(wxHORIZONTAL);
     
-    mainSizer->Add(boxSizer12, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
+    mainSizer->Add(boxSizer12, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, WXC_FROM_DIP(5));
     
-    m_buttonOK = new wxButton(this, wxID_OK, wxT("OK"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_buttonOK = new wxButton(this, wxID_OK, wxT("Abrir PDF"), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), 0);
     m_buttonOK->SetDefault();
     
-    boxSizer12->Add(m_buttonOK, 0, wxALL, 5);
+    boxSizer12->Add(m_buttonOK, 0, wxALL, WXC_FROM_DIP(5));
     
-    m_buttonCancel = new wxButton(this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_buttonSEND = new wxButton(this, wxID_APPLY, wxT("Enviar"), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), 0);
     
-    boxSizer12->Add(m_buttonCancel, 0, wxALL, 5);
+    boxSizer12->Add(m_buttonSEND, 0, wxALL, WXC_FROM_DIP(5));
+    
+    m_buttonCancel = new wxButton(this, wxID_CANCEL, wxT("Salir"), wxDefaultPosition, wxDLG_UNIT(this, wxSize(-1,-1)), 0);
+    
+    boxSizer12->Add(m_buttonCancel, 0, wxALL, WXC_FROM_DIP(5));
     
     SetName(wxT("MainDialogBaseClass"));
     SetSize(600,500);
@@ -345,6 +349,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     }
 #endif
     // Connect events
+    this->Connect(wxEVT_INIT_DIALOG, wxInitDialogEventHandler(MainDialogBaseClass::OnInitDialog), NULL, this);
     m_saldoAnteriorTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnSaldoAnteriorUpdated), NULL, this);
     m_creditoConcedidoTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoConcedidoUpdated), NULL, this);
     m_creditoCobradoTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoCobradoUpdated), NULL, this);
@@ -355,11 +360,13 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     m_importe1banco3textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
     m_importe2banco3textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
+    m_buttonSEND->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
     
 }
 
 MainDialogBaseClass::~MainDialogBaseClass()
 {
+    this->Disconnect(wxEVT_INIT_DIALOG, wxInitDialogEventHandler(MainDialogBaseClass::OnInitDialog), NULL, this);
     m_saldoAnteriorTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnSaldoAnteriorUpdated), NULL, this);
     m_creditoConcedidoTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoConcedidoUpdated), NULL, this);
     m_creditoCobradoTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoCobradoUpdated), NULL, this);
@@ -370,5 +377,6 @@ MainDialogBaseClass::~MainDialogBaseClass()
     m_importe1banco3textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
     m_importe2banco3textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
+    m_buttonSEND->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
     
 }

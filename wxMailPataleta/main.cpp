@@ -26,7 +26,7 @@
 #include <wx/image.h>
 
 #ifndef wxHAS_IMAGES_IN_RESOURCES
-    #include "marce.xpm"
+    #include "LogoPataleta.xpm"
 #endif
 
 // Variables globales para usar en los formularios que
@@ -75,3 +75,4 @@ bool MainApp::OnInit() {
         mainDialog.ShowModal();
         return true;
 }
+

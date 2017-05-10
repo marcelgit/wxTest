@@ -6,17 +6,19 @@
   <Project Name="SendMail" Path="SendMail/SendMail.project" Active="No"/>
   <Project Name="mgMailConsole" Path="mgMailConsole/mgMailConsole.project" Active="No"/>
   <Project Name="wxSpyDirectory" Path="wxSpyDirectory/wxSpyDirectory.project" Active="No"/>
+  <Project Name="abrir-por-defecto" Path="abrir-por-defecto/abrir-por-defecto.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
-      <Project Name="wxHola" ConfigName="Debug"/>
-      <Project Name="wxFuncionesMath" ConfigName="Debug"/>
-      <Project Name="wxMailPataleta" ConfigName="Debug"/>
       <Project Name="SendMail" ConfigName="Debug"/>
       <Project Name="mgMailConsole" ConfigName="Debug"/>
+      <Project Name="wxFuncionesMath" ConfigName="Debug"/>
+      <Project Name="wxHola" ConfigName="Debug"/>
+      <Project Name="wxMailPataleta" ConfigName="Debug"/>
       <Project Name="wxSpyDirectory" ConfigName="Debug"/>
+      <Project Name="abrir-por-defecto" ConfigName="Debug"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="Release" Selected="yes">
+    <WorkspaceConfiguration Name="Release" Selected="no">
       <Environment/>
       <Project Name="wxHola" ConfigName="Release"/>
       <Project Name="wxFuncionesMath" ConfigName="Release"/>
@@ -24,6 +26,7 @@
       <Project Name="SendMail" ConfigName="Release"/>
       <Project Name="mgMailConsole" ConfigName="Release"/>
       <Project Name="wxSpyDirectory" ConfigName="Release"/>
+      <Project Name="abrir-por-defecto" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
