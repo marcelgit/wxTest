@@ -3,6 +3,7 @@
 #include <wx/mimetype.h>
 #include <wx/log.h>
 #include <wx/filename.h>
+#include "wx/wxsqlite3.h"
 #include "MainDialog.h"
 #include "MyPdf.h"
 
@@ -13,6 +14,51 @@
     #include "LogoPataleta.xpm"
 #endif
 #endif
+
+wxSQLite3Database* initDB(void)
+{
+	wxString dbName = wxGetCwd() + wxT("/dbMailPataleta.db");
+    wxSQLite3Database* db;
+	if (!wxFileExists(dbName))
+	{
+        db = new wxSQLite3Database();
+	}
+	db->Open(dbName);
+    wxString sentencia = wxT("CREATE TABLE tabla ");
+    sentencia += wxT("(Fecha TEXT");
+    sentencia += wxT(", SaldoAnterior REAL");
+    sentencia += wxT(", CreditoConcedido REAL");
+    sentencia += wxT(", CreditoCobrado REAL)");
+    sentencia += wxT(", PrimerBanco TEXT");
+    sentencia += wxT(", SegundoBanco TEXT");
+    sentencia += wxT(", TercerBanco TEXT");
+    sentencia += wxT(", Banco1Vto1Fecha TEXT");
+    sentencia += wxT(", Banco1Vto1Importe REAL");
+    sentencia += wxT(", Banco1Vto2Fecha TEXT");
+    sentencia += wxT(", Banco1Vto2Importe REAL");
+    sentencia += wxT(", Banco2Vto1Fecha TEXT");
+    sentencia += wxT(", Banco2Vto1Importe REAL");
+    sentencia += wxT(", Banco2Vto2Fecha TEXT");
+    sentencia += wxT(", Banco2Vto2Importe REAL");
+    sentencia += wxT(", Banco3Vto1Fecha TEXT");
+    sentencia += wxT(", Banco3Vto1Importe REAL");
+    sentencia += wxT(", Banco3Vto2Fecha TEXT");
+    sentencia += wxT(", Banco3Vto2Importe REAL");
+    sentencia += wxT(", Pagares REAL");
+    sentencia += wxT(", CobroVto1Fecha TEXT");
+    sentencia += wxT(", CobroVto1Importe REAL");
+    sentencia += wxT(", CobroVto2Fecha TEXT");
+    sentencia += wxT(", CobroVto2Importe REAL)");
+	db->ExecuteUpdate(sentencia);
+	return db;
+}
+
+void clearDB(wxSQLite3Database* db)
+{
+	assert(db != NULL);
+	db->Close();
+	delete db;
+}
 
 MainDialog::MainDialog(wxWindow* parent)
     : MainDialogBaseClass(parent)
@@ -86,8 +132,8 @@ wxString MainDialog::CreatePdf()
     isOK = m_totalPagaresEnCarteraTextCtrl->GetValue().ToDouble(&totCobros);
     isOK = m_importePrevision1textCtrl->GetValue().ToDouble(&impP1);
     isOK = m_importePrevision2textCtrl->GetValue().ToDouble(&impP2);
-    if (!isOK)
-        wxMessageBox(wxT("No he podido convertir el 2º importe de previsión"));
+    //if (!isOK)
+    //    wxMessageBox(wxT("No he podido convertir el 2º importe de previsión"));
     wxDateTime fechaB11( m_vencimiento1banco1datePicker->GetValue() );
     int diaB11 = 0;
     int mesB11 = 0;
@@ -325,6 +371,68 @@ wxString MainDialog::CreatePdf()
     wxString myFic(wxString::Format(wxT("MaiPataleta%02d.pdf"), fecha.GetDay()));
     pdf.SaveAsFile(myFic);
     
+    // Salvar en la base de datos
+    wxSQLite3Database* db = initDB();
+    wxString sentencia = wxT("INSERT INTO tabla VALUES(");
+    wxString tmpsentencia;
+    tmpsentencia.Printf(wxT("%4d-%2d-%2d"), anyo, mes, dia);    //Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtSaldoAnt);   //SaldoAnterior REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtCtoConce);   //CreditoConcedido REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtCtoCobro);   //CreditoCobrado REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), m_banco1textCtrl->GetValue());   //PrimerBanco TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), m_banco2textCtrl->GetValue());   //SegundoBanco TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), m_banco3textCtrl->GetValue());   //TercerBanco TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB11);    //Banco1Vto1Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB12);    //Banco1Vto2Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB21);    //Banco2Vto1Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB22);    //Banco2Vto2Fecha TEXT
+    tmpsentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB31);    //Banco3Vto1Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaB32);    //Banco3Vto2Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB11);    //Banco1Vto1Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB12);    //Banco1Vto2Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB21);    //Banco2Vto1Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB22);    //Banco2Vto2Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB31);    //Banco3Vto1Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpB32);    //Banco3Vto2Importe REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtTotCobros);    //Pagares REAL
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaP1);    //CobroVto1Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtFechaP2);    //CobroVto2Fecha TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s"), txtImpP1);    //CobroVto1Importe TEXT
+    sentencia += tmpsentencia; 
+    tmpsentencia.Printf(wxT(",%s)"), txtImpP2);    //CobroVto2Importe TEXT
+    sentencia += tmpsentencia; 
+    try
+    {
+        db->ExecuteUpdate(sentencia);
+    }
+    catch (...)
+    {
+        wxMessageBox(wxT("No he podido salvar los datos."));
+    }
+
+    clearDB(db);
     // Restore locale C
     //setlocale(LC_ALL, "C");
     
@@ -357,7 +465,8 @@ void MainDialog::UpdateSaldoFinal()
 //    isOK = valorCtrl.ToCDouble(&tmpCreditoCobrado);
     isOK = m_creditoCobradoTextCtrl->GetValue().ToDouble(&tmpCreditoCobrado);
     if (!isOK)
-        wxMessageBox(wxT("No he podido convertir el crédito cobrado."));
+        tmpSaldoFinal = 0;
+        //wxMessageBox(wxT("No he podido convertir el crédito cobrado."));
     tmpSaldoFinal = tmpSaldoInicial + tmpCreditoConcedido - tmpCreditoCobrado;
     wxString txtSaldoFinal( wxString::Format(wxT("%'14.2f"), tmpSaldoFinal) );
     m_saldoFinalTextCtrl->SetValue(txtSaldoFinal);
@@ -404,7 +513,8 @@ void MainDialog::UpdateTotalPagos()
     isOK = m_importe1banco3textCtrl->GetValue().ToDouble(&tmpImp1B3);
     isOK = m_importe2banco3textCtrl->GetValue().ToDouble(&tmpImp2B3);
     if (!isOK)
-        wxMessageBox(wxT("No he podido convertir el 2º importe del 3er banco."));
+        tmpTotal = 0;
+        //wxMessageBox(wxT("No he podido convertir el 2º importe del 3er banco."));
     tmpTotal = tmpImp1B1 + tmpImp2B1 + tmpImp1B2 + tmpImp2B2 + tmpImp1B3 + tmpImp2B3;
     wxString txtTotal( wxString::Format(wxT("%'14.2f"), tmpTotal) );
     m_importeTotalVencimientosTextCtrl->SetValue(txtTotal);
