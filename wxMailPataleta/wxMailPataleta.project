@@ -30,7 +30,7 @@
     <File Name="wxcrafter.h"/>
     <File Name="globalVal.h"/>
     <File Name="MyPdf.h"/>
-    <File Name="../SendMail/wxsmtp.cpp"/>
+    <File Name="../SendMail/wxsmtp.cpp" ExcludeProjConfig="Debug"/>
   </VirtualDirectory>
   <VirtualDirectory Name="resources">
     <File Name="wxcrafter.wxcp"/>
@@ -49,9 +49,11 @@
     <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-Wall;$(shell /home/marcel/dev/wxgit/gtkrelease/wx-config --cxxflags --debug)" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
+        <IncludePath Value="~/dev/wxsqlite3-3.3.1/include/wx"/>
       </Compiler>
       <Linker Options="$(shell /home/marcel/dev/wxgit/gtkrelease/wx-config --libs --debug)" Required="yes">
         <Library Value="libwxcode_gtk3u_pdfdoc-3.1"/>
+        <Library Value="libwxcode_gtk3u_wxsqlite3-3.1.so"/>
       </Linker>
       <ResourceCompiler Options="$(shell wx-config --rcflags)" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="yes" IsEnabled="yes"/>
@@ -130,4 +132,9 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="wxcrafter">
+    <VirtualDirectory Name="resources">
+      <File Name="wxcrafter_bitmaps.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
 </CodeLite_Project>

@@ -57,9 +57,6 @@ bool MainApp::OnInit() {
     if ( !wxApp::OnInit() )
         return false;
 
-        // Set locale
-        //setlocale(LC_ALL, "C");
-        //wxLocale(wxLANGUAGE_SPANISH);
         // Add the common image handlers
 #if wxUSE_LIBPNG
     wxImage::AddHandler(new wxPNGHandler);

@@ -7,6 +7,8 @@
   <Project Name="mgMailConsole" Path="mgMailConsole/mgMailConsole.project" Active="No"/>
   <Project Name="wxSpyDirectory" Path="wxSpyDirectory/wxSpyDirectory.project" Active="No"/>
   <Project Name="abrir-por-defecto" Path="abrir-por-defecto/abrir-por-defecto.project" Active="No"/>
+  <Project Name="mgTestSQLite3" Path="mgTestSQLite3/mgTestSQLite3.project" Active="No"/>
+  <Project Name="testLocale" Path="testLocale/testLocale.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -17,8 +19,10 @@
       <Project Name="wxMailPataleta" ConfigName="Debug"/>
       <Project Name="wxSpyDirectory" ConfigName="Debug"/>
       <Project Name="abrir-por-defecto" ConfigName="Debug"/>
+      <Project Name="mgTestSQLite3" ConfigName="Debug"/>
+      <Project Name="testLocale" ConfigName="Debug"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="Release" Selected="no">
+    <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="wxHola" ConfigName="Release"/>
       <Project Name="wxFuncionesMath" ConfigName="Release"/>
@@ -27,6 +31,8 @@
       <Project Name="mgMailConsole" ConfigName="Release"/>
       <Project Name="wxSpyDirectory" ConfigName="Release"/>
       <Project Name="abrir-por-defecto" ConfigName="Release"/>
+      <Project Name="mgTestSQLite3" ConfigName="Release"/>
+      <Project Name="testLocale" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

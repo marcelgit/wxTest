@@ -18,38 +18,45 @@
 wxSQLite3Database* initDB(void)
 {
 	wxString dbName = wxGetCwd() + wxT("/dbMailPataleta.db");
-    wxSQLite3Database* db;
-	if (!wxFileExists(dbName))
-	{
-        db = new wxSQLite3Database();
-	}
-	db->Open(dbName);
-    wxString sentencia = wxT("CREATE TABLE tabla ");
-    sentencia += wxT("(Fecha TEXT");
-    sentencia += wxT(", SaldoAnterior REAL");
-    sentencia += wxT(", CreditoConcedido REAL");
-    sentencia += wxT(", CreditoCobrado REAL)");
-    sentencia += wxT(", PrimerBanco TEXT");
-    sentencia += wxT(", SegundoBanco TEXT");
-    sentencia += wxT(", TercerBanco TEXT");
-    sentencia += wxT(", Banco1Vto1Fecha TEXT");
-    sentencia += wxT(", Banco1Vto1Importe REAL");
-    sentencia += wxT(", Banco1Vto2Fecha TEXT");
-    sentencia += wxT(", Banco1Vto2Importe REAL");
-    sentencia += wxT(", Banco2Vto1Fecha TEXT");
-    sentencia += wxT(", Banco2Vto1Importe REAL");
-    sentencia += wxT(", Banco2Vto2Fecha TEXT");
-    sentencia += wxT(", Banco2Vto2Importe REAL");
-    sentencia += wxT(", Banco3Vto1Fecha TEXT");
-    sentencia += wxT(", Banco3Vto1Importe REAL");
-    sentencia += wxT(", Banco3Vto2Fecha TEXT");
-    sentencia += wxT(", Banco3Vto2Importe REAL");
-    sentencia += wxT(", Pagares REAL");
-    sentencia += wxT(", CobroVto1Fecha TEXT");
-    sentencia += wxT(", CobroVto1Importe REAL");
-    sentencia += wxT(", CobroVto2Fecha TEXT");
-    sentencia += wxT(", CobroVto2Importe REAL)");
-	db->ExecuteUpdate(sentencia);
+    wxSQLite3Database* db = new wxSQLite3Database();
+    db->Open(dbName);
+    if (!db->TableExists(wxT("tabla")))
+    {
+        wxString sentencia = wxT("CREATE TABLE IF NOT EXIST tabla ");
+        sentencia += wxT("(Fecha TEXT PRIMARY KEY");
+        sentencia += wxT(", SaldoAnterior REAL");
+        sentencia += wxT(", CreditoConcedido REAL");
+        sentencia += wxT(", CreditoCobrado REAL");
+        sentencia += wxT(", PrimerBanco TEXT");
+        sentencia += wxT(", SegundoBanco TEXT");
+        sentencia += wxT(", TercerBanco TEXT");
+        sentencia += wxT(", Banco1Vto1Fecha TEXT");
+        sentencia += wxT(", Banco1Vto1Importe REAL");
+        sentencia += wxT(", Banco1Vto2Fecha TEXT");
+        sentencia += wxT(", Banco1Vto2Importe REAL");
+        sentencia += wxT(", Banco2Vto1Fecha TEXT");
+        sentencia += wxT(", Banco2Vto1Importe REAL");
+        sentencia += wxT(", Banco2Vto2Fecha TEXT");
+        sentencia += wxT(", Banco2Vto2Importe REAL");
+        sentencia += wxT(", Banco3Vto1Fecha TEXT");
+        sentencia += wxT(", Banco3Vto1Importe REAL");
+        sentencia += wxT(", Banco3Vto2Fecha TEXT");
+        sentencia += wxT(", Banco3Vto2Importe REAL");
+        sentencia += wxT(", Pagares REAL");
+        sentencia += wxT(", CobroVto1Fecha TEXT");
+        sentencia += wxT(", CobroVto1Importe REAL");
+        sentencia += wxT(", CobroVto2Fecha TEXT");
+        sentencia += wxT(", CobroVto2Importe REAL)");
+        try
+        {
+            db->ExecuteUpdate(sentencia);
+            
+        }
+        catch (...)
+        {
+            wxMessageBox(wxT("No he podido crear la tabla."));
+        }
+    }
 	return db;
 }
 
@@ -118,6 +125,7 @@ wxString MainDialog::CreatePdf()
     double totCobros;
     double impP1;
     double impP2;
+    setlocale(LC_ALL, "");
     isOK = m_saldoAnteriorTextCtrl->GetValue().ToDouble(&saldoAnt);
     isOK = m_creditoConcedidoTextCtrl->GetValue().ToDouble(&ctoConce);
     isOK = m_creditoCobradoTextCtrl->GetValue().ToDouble(&ctoCobro);
@@ -368,64 +376,119 @@ wxString MainDialog::CreatePdf()
     pdf.Cell(30, 10, txtImpP2, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Crear archivo
-    wxString myFic(wxString::Format(wxT("MaiPataleta%02d.pdf"), fecha.GetDay()));
+    wxString myFic(wxString::Format(wxT("MailPataleta%02d.pdf"), fecha.GetDay()));
     pdf.SaveAsFile(myFic);
     
     // Salvar en la base de datos
     wxSQLite3Database* db = initDB();
-    wxString sentencia = wxT("INSERT INTO tabla VALUES(");
-    wxString tmpsentencia;
-    tmpsentencia.Printf(wxT("%4d-%2d-%2d"), anyo, mes, dia);    //Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtSaldoAnt);   //SaldoAnterior REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtCtoConce);   //CreditoConcedido REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtCtoCobro);   //CreditoCobrado REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), m_banco1textCtrl->GetValue());   //PrimerBanco TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), m_banco2textCtrl->GetValue());   //SegundoBanco TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), m_banco3textCtrl->GetValue());   //TercerBanco TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB11);    //Banco1Vto1Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB12);    //Banco1Vto2Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB21);    //Banco2Vto1Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB22);    //Banco2Vto2Fecha TEXT
-    tmpsentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB31);    //Banco3Vto1Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaB32);    //Banco3Vto2Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB11);    //Banco1Vto1Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB12);    //Banco1Vto2Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB21);    //Banco2Vto1Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB22);    //Banco2Vto2Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB31);    //Banco3Vto1Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpB32);    //Banco3Vto2Importe REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtTotCobros);    //Pagares REAL
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaP1);    //CobroVto1Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtFechaP2);    //CobroVto2Fecha TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s"), txtImpP1);    //CobroVto1Importe TEXT
-    sentencia += tmpsentencia; 
-    tmpsentencia.Printf(wxT(",%s)"), txtImpP2);    //CobroVto2Importe TEXT
-    sentencia += tmpsentencia; 
+    setlocale(LC_ALL, "C");
+    wxString sentencia = wxT("INSERT INTO tabla VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     try
     {
-        db->ExecuteUpdate(sentencia);
+    wxSQLite3Statement stmt = db->PrepareStatement(sentencia);
+    wxString tmpsentencia;
+    //tmpsentencia.Printf(wxT("%c%4d-%02d-%02d%c"), 0x22, anyo, mes, dia, 0x22);    //Fecha TEXT
+    tmpsentencia.Printf(wxT("%4d-%02d-%02d"), anyo, mes, dia);    //Fecha TEXT
+    stmt.Bind(1, tmpsentencia);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT("%14.2f"), saldoAnt);   //SaldoAnterior REAL
+    stmt.Bind(2, saldoAnt);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), ctoConce);   //CreditoConcedido REAL
+    stmt.Bind(3, ctoConce);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), ctoCobro);   //CreditoCobrado REAL
+    stmt.Bind(4, ctoCobro);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco1textCtrl->GetValue(), 0x22);   //PrimerBanco TEXT
+    stmt.Bind(5, m_banco1textCtrl->GetValue());
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco2textCtrl->GetValue(), 0x22);   //SegundoBanco TEXT
+    stmt.Bind(6, m_banco2textCtrl->GetValue());
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco3textCtrl->GetValue(), 0x22);   //TercerBanco TEXT
+    stmt.Bind(7, m_banco3textCtrl->GetValue());
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB11, 0x22);    //Banco1Vto1Fecha TEXT
+    stmt.Bind(8, txtFechaB11);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB12, 0x22);    //Banco1Vto2Fecha TEXT
+    stmt.Bind(9, txtFechaB12);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB21, 0x22);    //Banco2Vto1Fecha TEXT
+    stmt.Bind(10, txtFechaB21);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB22, 0x22);    //Banco2Vto2Fecha TEXT
+    stmt.Bind(11, txtFechaB22);
+    //tmpsentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB31, 0x22);    //Banco3Vto1Fecha TEXT
+    stmt.Bind(12, txtFechaB31);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB32, 0x22);    //Banco3Vto2Fecha TEXT
+    stmt.Bind(13, txtFechaB32);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB11);    //Banco1Vto1Importe REAL
+    stmt.Bind(14, impB11);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB12);    //Banco1Vto2Importe REAL
+    stmt.Bind(15, impB12);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB21);    //Banco2Vto1Importe REAL
+    stmt.Bind(16, impB21);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB22);    //Banco2Vto2Importe REAL
+    stmt.Bind(17, impB21);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB31);    //Banco3Vto1Importe REAL
+    stmt.Bind(18, impB31);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impB32);    //Banco3Vto2Importe REAL
+    stmt.Bind(19, impB32);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), totCobros);    //Pagares REAL
+    stmt.Bind(20, totCobros);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaP1, 0x22);    //CobroVto1Fecha TEXT
+    stmt.Bind(21, txtFechaP1);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaP2, 0x22);    //CobroVto2Fecha TEXT
+    stmt.Bind(22, txtFechaP2);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f"), impP1);    //CobroVto1Importe TEXT
+    stmt.Bind(23, impP1);
+    //sentencia += tmpsentencia; 
+    //tmpsentencia.Printf(wxT(",%14.2f)"), impP2);    //CobroVto2Importe TEXT
+    stmt.Bind(24, impP2);
+    //sentencia += tmpsentencia; 
+    /*
+        sentencia += wxT("(Fecha TEXT");
+        sentencia += wxT(", SaldoAnterior REAL");
+        sentencia += wxT(", CreditoConcedido REAL");
+        sentencia += wxT(", CreditoCobrado REAL");
+        sentencia += wxT(", PrimerBanco TEXT");
+        sentencia += wxT(", SegundoBanco TEXT");
+        sentencia += wxT(", TercerBanco TEXT");
+        sentencia += wxT(", Banco1Vto1Fecha TEXT");
+        sentencia += wxT(", Banco1Vto1Importe REAL");
+        sentencia += wxT(", Banco1Vto2Fecha TEXT");
+        sentencia += wxT(", Banco1Vto2Importe REAL");
+        sentencia += wxT(", Banco2Vto1Fecha TEXT");
+        sentencia += wxT(", Banco2Vto1Importe REAL");
+        sentencia += wxT(", Banco2Vto2Fecha TEXT");
+        sentencia += wxT(", Banco2Vto2Importe REAL");
+        sentencia += wxT(", Banco3Vto1Fecha TEXT");
+        sentencia += wxT(", Banco3Vto1Importe REAL");
+        sentencia += wxT(", Banco3Vto2Fecha TEXT");
+        sentencia += wxT(", Banco3Vto2Importe REAL");
+        sentencia += wxT(", Pagares REAL");
+        sentencia += wxT(", CobroVto1Fecha TEXT");
+        sentencia += wxT(", CobroVto1Importe REAL");
+        sentencia += wxT(", CobroVto2Fecha TEXT");
+        sentencia += wxT(", CobroVto2Importe REAL)");
+     */
+        int res = 0;
+        //db->ExecuteUpdate(sentencia);
+        res = stmt.ExecuteUpdate();
     }
     catch (...)
     {
@@ -434,7 +497,7 @@ wxString MainDialog::CreatePdf()
 
     clearDB(db);
     // Restore locale C
-    //setlocale(LC_ALL, "C");
+    setlocale(LC_ALL, "");
     
     return( myFic );
 }
