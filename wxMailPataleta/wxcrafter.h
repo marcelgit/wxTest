@@ -19,7 +19,7 @@
 #include <wx/statline.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
-#include "globalVal.h"
+#include "registro_extern.h"
 #include <wx/button.h>
 #if wxVERSION_NUMBER >= 2900
 #include <wx/persist.h>
@@ -55,25 +55,28 @@ protected:
     wxStaticLine* m_staticLine53;
     wxStaticText* m_staticText55;
     wxTextCtrl* m_banco1textCtrl;
-    wxDatePickerCtrl* m_vencimiento1banco1datePicker;
-    wxTextCtrl* m_importe1banco1textCtrl;
+    wxDatePickerCtrl* m_banco1datePicker;
+    wxTextCtrl* m_importe1textCtrl;
     wxStaticText* m_staticText63;
-    wxDatePickerCtrl* m_vencimiento2banco1datePicker;
-    wxTextCtrl* m_importe2banco1textCtrl;
-    wxStaticText* m_staticText73;
     wxTextCtrl* m_banco2textCtrl;
-    wxDatePickerCtrl* m_vencimiento1banco2datePicker;
-    wxTextCtrl* m_importe1banco2textCtrl;
-    wxStaticText* m_staticText81;
-    wxDatePickerCtrl* m_vencimiento2banco2datePicker;
-    wxTextCtrl* m_importe2banco2textCtrl;
-    wxStaticText* m_staticText89;
+    wxDatePickerCtrl* m_banco2datePicker;
+    wxTextCtrl* m_importe2textCtrl;
+    wxStaticText* m_staticText73;
     wxTextCtrl* m_banco3textCtrl;
-    wxDatePickerCtrl* m_vencimiento1banco3datePicker;
-    wxTextCtrl* m_importe1banco3textCtrl;
+    wxDatePickerCtrl* m_banco3datePicker;
+    wxTextCtrl* m_importe3textCtrl;
+    wxStaticText* m_staticText81;
+    wxTextCtrl* m_banco4textCtrl;
+    wxDatePickerCtrl* m_banco4datePicker;
+    wxTextCtrl* m_importe4textCtrl;
+    wxStaticText* m_staticText89;
+    wxTextCtrl* m_banco5textCtrl;
+    wxDatePickerCtrl* m_banco5datePicker;
+    wxTextCtrl* m_importe5textCtrl;
     wxStaticText* m_staticText97;
-    wxDatePickerCtrl* m_vencimiento2banco3datePicker;
-    wxTextCtrl* m_importe2banco3textCtrl;
+    wxTextCtrl* m_banco6textCtrl;
+    wxDatePickerCtrl* m_banco6datePicker;
+    wxTextCtrl* m_importe6textCtrl;
     wxStaticText* m_staticText127;
     wxTextCtrl* m_importeTotalVencimientosTextCtrl;
     wxStaticLine* m_staticLine135;
@@ -119,25 +122,28 @@ public:
     wxStaticLine* GetStaticLine53() { return m_staticLine53; }
     wxStaticText* GetStaticText55() { return m_staticText55; }
     wxTextCtrl* GetBanco1textCtrl() { return m_banco1textCtrl; }
-    wxDatePickerCtrl* GetVencimiento1banco1datePicker() { return m_vencimiento1banco1datePicker; }
-    wxTextCtrl* GetImporte1banco1textCtrl() { return m_importe1banco1textCtrl; }
+    wxDatePickerCtrl* GetBanco1datePicker() { return m_banco1datePicker; }
+    wxTextCtrl* GetImporte1textCtrl() { return m_importe1textCtrl; }
     wxStaticText* GetStaticText63() { return m_staticText63; }
-    wxDatePickerCtrl* GetVencimiento2banco1datePicker() { return m_vencimiento2banco1datePicker; }
-    wxTextCtrl* GetImporte2banco1textCtrl() { return m_importe2banco1textCtrl; }
-    wxStaticText* GetStaticText73() { return m_staticText73; }
     wxTextCtrl* GetBanco2textCtrl() { return m_banco2textCtrl; }
-    wxDatePickerCtrl* GetVencimiento1banco2datePicker() { return m_vencimiento1banco2datePicker; }
-    wxTextCtrl* GetImporte1banco2textCtrl() { return m_importe1banco2textCtrl; }
-    wxStaticText* GetStaticText81() { return m_staticText81; }
-    wxDatePickerCtrl* GetVencimiento2banco2datePicker() { return m_vencimiento2banco2datePicker; }
-    wxTextCtrl* GetImporte2banco2textCtrl() { return m_importe2banco2textCtrl; }
-    wxStaticText* GetStaticText89() { return m_staticText89; }
+    wxDatePickerCtrl* GetBanco2datePicker() { return m_banco2datePicker; }
+    wxTextCtrl* GetImporte2textCtrl() { return m_importe2textCtrl; }
+    wxStaticText* GetStaticText73() { return m_staticText73; }
     wxTextCtrl* GetBanco3textCtrl() { return m_banco3textCtrl; }
-    wxDatePickerCtrl* GetVencimiento1banco3datePicker() { return m_vencimiento1banco3datePicker; }
-    wxTextCtrl* GetImporte1banco3textCtrl() { return m_importe1banco3textCtrl; }
+    wxDatePickerCtrl* GetBanco3datePicker() { return m_banco3datePicker; }
+    wxTextCtrl* GetImporte3textCtrl() { return m_importe3textCtrl; }
+    wxStaticText* GetStaticText81() { return m_staticText81; }
+    wxTextCtrl* GetBanco4textCtrl() { return m_banco4textCtrl; }
+    wxDatePickerCtrl* GetBanco4datePicker() { return m_banco4datePicker; }
+    wxTextCtrl* GetImporte4textCtrl() { return m_importe4textCtrl; }
+    wxStaticText* GetStaticText89() { return m_staticText89; }
+    wxTextCtrl* GetBanco5textCtrl() { return m_banco5textCtrl; }
+    wxDatePickerCtrl* GetBanco5datePicker() { return m_banco5datePicker; }
+    wxTextCtrl* GetImporte5textCtrl() { return m_importe5textCtrl; }
     wxStaticText* GetStaticText97() { return m_staticText97; }
-    wxDatePickerCtrl* GetVencimiento2banco3datePicker() { return m_vencimiento2banco3datePicker; }
-    wxTextCtrl* GetImporte2banco3textCtrl() { return m_importe2banco3textCtrl; }
+    wxTextCtrl* GetBanco6textCtrl() { return m_banco6textCtrl; }
+    wxDatePickerCtrl* GetBanco6datePicker() { return m_banco6datePicker; }
+    wxTextCtrl* GetImporte6textCtrl() { return m_importe6textCtrl; }
     wxStaticText* GetStaticText127() { return m_staticText127; }
     wxTextCtrl* GetImporteTotalVencimientosTextCtrl() { return m_importeTotalVencimientosTextCtrl; }
     wxStaticLine* GetStaticLine135() { return m_staticLine135; }

@@ -26,15 +26,15 @@
 #include <wx/image.h>
 
 #ifndef wxHAS_IMAGES_IN_RESOURCES
-    #include "LogoPataleta.xpm"
+    #include "LogoPataleta600x400.xpm"
 #endif
 
 // Variables globales para usar en los formularios que
 // usen wxValidator
-namespace GlobalVal
-{
-    float importe;
-}
+//namespace GlobalVal
+//{
+//    float importe;
+//}
 
 // Define the MainApp
 class MainApp : public wxApp
@@ -48,6 +48,7 @@ public:
     // return: if OnInit() returns false, the application terminates)
 
     virtual bool OnInit() wxOVERRIDE;
+    wxLocale m_locale;
 };
 
 DECLARE_APP(MainApp)
@@ -68,6 +69,7 @@ bool MainApp::OnInit() {
     wxImage::AddHandler(new wxGIFHandler);
 #endif
 
+        m_locale.Init(wxLANGUAGE_SPANISH);
         MainDialog mainDialog(NULL);
         mainDialog.ShowModal();
         return true;

@@ -6,13 +6,10 @@
 #include "wx/wxsqlite3.h"
 #include "MainDialog.h"
 #include "MyPdf.h"
+#include "registro_global.h"
 
 #ifndef wxHAS_IMAGES_IN_RESOURCES
-#ifdef WXDEBUG
-    #include "marce.xpm"
-#else
-    #include "LogoPataleta.xpm"
-#endif
+    #include "LogoPataleta600x400.xpm"
 #endif
 
 wxSQLite3Database* initDB(void)
@@ -20,28 +17,29 @@ wxSQLite3Database* initDB(void)
 	wxString dbName = wxGetCwd() + wxT("/dbMailPataleta.db");
     wxSQLite3Database* db = new wxSQLite3Database();
     db->Open(dbName);
-    if (!db->TableExists(wxT("tabla")))
-    {
-        wxString sentencia = wxT("CREATE TABLE IF NOT EXIST tabla ");
+        wxString sentencia = wxT("CREATE TABLE IF NOT EXISTS tabla ");
         sentencia += wxT("(Fecha TEXT PRIMARY KEY");
         sentencia += wxT(", SaldoAnterior REAL");
         sentencia += wxT(", CreditoConcedido REAL");
         sentencia += wxT(", CreditoCobrado REAL");
-        sentencia += wxT(", PrimerBanco TEXT");
-        sentencia += wxT(", SegundoBanco TEXT");
-        sentencia += wxT(", TercerBanco TEXT");
-        sentencia += wxT(", Banco1Vto1Fecha TEXT");
-        sentencia += wxT(", Banco1Vto1Importe REAL");
-        sentencia += wxT(", Banco1Vto2Fecha TEXT");
-        sentencia += wxT(", Banco1Vto2Importe REAL");
-        sentencia += wxT(", Banco2Vto1Fecha TEXT");
-        sentencia += wxT(", Banco2Vto1Importe REAL");
-        sentencia += wxT(", Banco2Vto2Fecha TEXT");
-        sentencia += wxT(", Banco2Vto2Importe REAL");
-        sentencia += wxT(", Banco3Vto1Fecha TEXT");
-        sentencia += wxT(", Banco3Vto1Importe REAL");
-        sentencia += wxT(", Banco3Vto2Fecha TEXT");
-        sentencia += wxT(", Banco3Vto2Importe REAL");
+        sentencia += wxT(", Banco1Nombre TEXT");
+        sentencia += wxT(", Banco1Fecha TEXT");
+        sentencia += wxT(", Banco1Importe REAL");
+        sentencia += wxT(", Banco2Nombre TEXT");
+        sentencia += wxT(", Banco2Fecha TEXT");
+        sentencia += wxT(", Banco2Importe REAL");
+        sentencia += wxT(", Banco3Nombre TEXT");
+        sentencia += wxT(", Banco3Fecha TEXT");
+        sentencia += wxT(", Banco3Importe REAL");
+        sentencia += wxT(", Banco4Nombre TEXT");
+        sentencia += wxT(", Banco4Fecha TEXT");
+        sentencia += wxT(", Banco4Importe REAL");
+        sentencia += wxT(", Banco5Nombre TEXT");
+        sentencia += wxT(", Banco5Fecha TEXT");
+        sentencia += wxT(", Banco5Importe REAL");
+        sentencia += wxT(", Banco6Nombre TEXT");
+        sentencia += wxT(", Banco6Fecha TEXT");
+        sentencia += wxT(", Banco6Importe REAL");
         sentencia += wxT(", Pagares REAL");
         sentencia += wxT(", CobroVto1Fecha TEXT");
         sentencia += wxT(", CobroVto1Importe REAL");
@@ -50,13 +48,18 @@ wxSQLite3Database* initDB(void)
         try
         {
             db->ExecuteUpdate(sentencia);
-            
+        }
+        catch (wxSQLite3Exception& e)
+        {
+            wxString errSQL;
+            errSQL.Printf(wxT("Error al crear la tabla: %d, %s"), e.GetErrorCode(), e.GetMessage().ToUTF8());
+            //cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+            wxMessageBox(errSQL);
         }
         catch (...)
         {
             wxMessageBox(wxT("No he podido crear la tabla."));
         }
-    }
 	return db;
 }
 
@@ -70,29 +73,21 @@ void clearDB(wxSQLite3Database* db)
 MainDialog::MainDialog(wxWindow* parent)
     : MainDialogBaseClass(parent)
 {
-    #ifdef WXDEBUG
-        SetIcon(wxICON(marce));
-    #else
-        SetIcon(wxICON(LogoPataleta));
-    #endif
-    // Set locale from OS
-    setlocale(LC_ALL, "");
+    SetIcon(wxICON(LogoPataleta600x400));
 }
 
 MainDialog::~MainDialog()
 {
-    // Restore locale C
-    setlocale(LC_ALL, "C");
 }
 
 void MainDialog::OnInitDialog(wxInitDialogEvent &event)
 {
-    // Set locale from OS
-    setlocale(LC_ALL, "");
 }
 
 void MainDialog::OnButtonOKClicked(wxCommandEvent& event)
 {
+    //wxMessageBox(wxT("Abrir"));
+    SaveData();
     wxString filePdf;
     filePdf = CreatePdf();
     OpenPdf( filePdf );
@@ -101,6 +96,7 @@ void MainDialog::OnButtonOKClicked(wxCommandEvent& event)
 
 void MainDialog::OnButtonSendClicked(wxCommandEvent& event)
 {
+    SaveData();
     wxString filePdf;
     filePdf = CreatePdf();
     SendPdf( filePdf );
@@ -110,97 +106,65 @@ void MainDialog::OnButtonSendClicked(wxCommandEvent& event)
 wxString MainDialog::CreatePdf()
 {
     // Convert Controls values to their types
-    bool isOK;
-    double saldoAnt;// = 456987.20;
-    double ctoConce;
-    double ctoCobro;
-    double saldoFin;
-    double impB11;
-    double impB12;
-    double impB21;
-    double impB22;
-    double impB31;
-    double impB32;
-    double totPagos;
-    double totCobros;
-    double impP1;
-    double impP2;
-    setlocale(LC_ALL, "");
-    isOK = m_saldoAnteriorTextCtrl->GetValue().ToDouble(&saldoAnt);
-    isOK = m_creditoConcedidoTextCtrl->GetValue().ToDouble(&ctoConce);
-    isOK = m_creditoCobradoTextCtrl->GetValue().ToDouble(&ctoCobro);
-    isOK = m_saldoFinalTextCtrl->GetValue().ToDouble(&saldoFin);
-    isOK = m_importe1banco1textCtrl->GetValue().ToDouble(&impB11);
-    isOK = m_importe2banco1textCtrl->GetValue().ToDouble(&impB12);
-    isOK = m_importe1banco2textCtrl->GetValue().ToDouble(&impB21);
-    isOK = m_importe2banco2textCtrl->GetValue().ToDouble(&impB22);
-    isOK = m_importe1banco3textCtrl->GetValue().ToDouble(&impB31);
-    isOK = m_importe2banco3textCtrl->GetValue().ToDouble(&impB32);
-    isOK = m_importeTotalVencimientosTextCtrl->GetValue().ToDouble(&totPagos);
-    isOK = m_totalPagaresEnCarteraTextCtrl->GetValue().ToDouble(&totCobros);
-    isOK = m_importePrevision1textCtrl->GetValue().ToDouble(&impP1);
-    isOK = m_importePrevision2textCtrl->GetValue().ToDouble(&impP2);
-    //if (!isOK)
-    //    wxMessageBox(wxT("No he podido convertir el 2º importe de previsión"));
-    wxDateTime fechaB11( m_vencimiento1banco1datePicker->GetValue() );
-    int diaB11 = 0;
-    int mesB11 = 0;
-    int anyoB11 = 0;
-    if (fechaB11.IsValid())
+    wxDateTime fechaB1( m_banco1datePicker->GetValue() );
+    int diaB1 = 0;
+    int mesB1 = 0;
+    int anyoB1 = 0;
+    if (fechaB1.IsValid())
     {
-        diaB11 = fechaB11.GetDay();
-        mesB11 = fechaB11.GetMonth() + 1;
-        anyoB11 = fechaB11.GetYear();
+        diaB1 = fechaB1.GetDay();
+        mesB1 = fechaB1.GetMonth() + 1;
+        anyoB1 = fechaB1.GetYear();
     }
-    wxDateTime fechaB12( m_vencimiento2banco1datePicker->GetValue() );
-    int diaB12 = 0;
-    int mesB12 = 0;
-    int anyoB12 = 0;
-    if (fechaB12.IsValid())
+    wxDateTime fechaB2( m_banco2datePicker->GetValue() );
+    int diaB2 = 0;
+    int mesB2 = 0;
+    int anyoB2 = 0;
+    if (fechaB2.IsValid())
     {
-        diaB12 = fechaB12.GetDay();
-        mesB12 = fechaB12.GetMonth() + 1;
-        anyoB12 = fechaB12.GetYear();
+        diaB2 = fechaB2.GetDay();
+        mesB2 = fechaB2.GetMonth() + 1;
+        anyoB2 = fechaB2.GetYear();
     }
-    wxDateTime fechaB21( m_vencimiento1banco2datePicker->GetValue() );
-    int diaB21 = 0;
-    int mesB21 = 0;
-    int anyoB21 = 0;
-    if (fechaB21.IsValid())
+    wxDateTime fechaB3( m_banco3datePicker->GetValue() );
+    int diaB3 = 0;
+    int mesB3 = 0;
+    int anyoB3 = 0;
+    if (fechaB3.IsValid())
     {
-        diaB21 = fechaB21.GetDay();
-        mesB21 = fechaB21.GetMonth() + 1;
-        anyoB21 = fechaB21.GetYear();
+        diaB3 = fechaB3.GetDay();
+        mesB3 = fechaB3.GetMonth() + 1;
+        anyoB3 = fechaB3.GetYear();
     }
-    wxDateTime fechaB22( m_vencimiento2banco2datePicker->GetValue() );
-    int diaB22 = 0;
-    int mesB22 = 0;
-    int anyoB22 = 0;
-    if (fechaB22.IsValid())
+    wxDateTime fechaB4( m_banco4datePicker->GetValue() );
+    int diaB4 = 0;
+    int mesB4 = 0;
+    int anyoB4 = 0;
+    if (fechaB4.IsValid())
     {
-        diaB22 = fechaB22.GetDay();
-        mesB22 = fechaB22.GetMonth() + 1;
-        anyoB22 = fechaB22.GetYear();
+        diaB4 = fechaB4.GetDay();
+        mesB4 = fechaB4.GetMonth() + 1;
+        anyoB4 = fechaB4.GetYear();
     }
-    wxDateTime fechaB31( m_vencimiento1banco3datePicker->GetValue() );
-    int diaB31 = 0;
-    int mesB31 = 0;
-    int anyoB31 = 0;
-    if (fechaB31.IsValid())
+    wxDateTime fechaB5( m_banco5datePicker->GetValue() );
+    int diaB5 = 0;
+    int mesB5 = 0;
+    int anyoB5 = 0;
+    if (fechaB5.IsValid())
     {
-        diaB31 = fechaB31.GetDay();
-        mesB31 = fechaB31.GetMonth() + 1;
-        anyoB31 = fechaB31.GetYear();
+        diaB5 = fechaB5.GetDay();
+        mesB5 = fechaB5.GetMonth() + 1;
+        anyoB5 = fechaB5.GetYear();
     }
-    wxDateTime fechaB32( m_vencimiento2banco3datePicker->GetValue() );
-    int diaB32 = 0;
-    int mesB32 = 0;
-    int anyoB32 = 0;
-    if (fechaB32.IsValid())
+    wxDateTime fechaB6( m_banco6datePicker->GetValue() );
+    int diaB6 = 0;
+    int mesB6 = 0;
+    int anyoB6 = 0;
+    if (fechaB6.IsValid())
     {
-        diaB32 = fechaB32.GetDay();
-        mesB32 = fechaB32.GetMonth() + 1;
-        anyoB32 = fechaB32.GetYear();
+        diaB6 = fechaB6.GetDay();
+        mesB6 = fechaB6.GetMonth() + 1;
+        anyoB6 = fechaB6.GetYear();
     }
     wxDateTime fechaP1( m_prevision1datePicker->GetValue() );
     int diaP1 = fechaP1.GetDay();
@@ -210,66 +174,32 @@ wxString MainDialog::CreatePdf()
     int diaP2 = fechaP2.GetDay();
     int mesP2 = fechaP2.GetMonth() + 1;
     int anyoP2 = fechaP2.GetYear();
-    isOK = true;
-
-    // Set locale from OS
-    //setlocale(LC_ALL, "");
-
-    // Format numbert with locale
-    wxString txtSaldoAnt;
-    wxString txtCtoConce;
-    wxString txtCtoCobro;
-    wxString txtSaldoFin;
-    wxString txtImpB11;
-    wxString txtImpB12;
-    wxString txtImpB21;
-    wxString txtImpB22;
-    wxString txtImpB31;
-    wxString txtImpB32;
-    wxString txtTotPagos;
-    wxString txtTotCobros;
-    wxString txtImpP1;
-    wxString txtImpP2;
-    wxString txtFechaB11;
-    wxString txtFechaB12;
-    wxString txtFechaB21;
-    wxString txtFechaB22;
-    wxString txtFechaB31;
-    wxString txtFechaB32;
+    wxString txtFechaB1;
+    wxString txtFechaB2;
+    wxString txtFechaB3;
+    wxString txtFechaB4;
+    wxString txtFechaB5;
+    wxString txtFechaB6;
     wxString txtFechaP1;
     wxString txtFechaP2;
-    txtSaldoAnt = wxString::Format(wxT("%'14.2f"), saldoAnt);
-    txtCtoConce = wxString::Format(wxT("%'14.2f"), ctoConce);
-    txtCtoCobro = wxString::Format(wxT("%'14.2f"), ctoCobro);
-    txtSaldoFin = wxString::Format(wxT("%'14.2f"), saldoFin);
-    txtImpB11 = wxString::Format(wxT("%'14.2f"), impB11);
-    txtImpB12 = wxString::Format(wxT("%'14.2f"), impB12);
-    txtImpB21 = wxString::Format(wxT("%'14.2f"), impB21);
-    txtImpB22 = wxString::Format(wxT("%'14.2f"), impB22);
-    txtImpB31 = wxString::Format(wxT("%'14.2f"), impB31);
-    txtImpB32 = wxString::Format(wxT("%'14.2f"), impB32);
-    txtTotPagos = wxString::Format(wxT("%'14.2f"), totPagos);
-    txtTotCobros = wxString::Format(wxT("%'14.2f"), totCobros);
-    txtImpP1 = wxString::Format(wxT("%'14.2f"), impP1);
-    txtImpP2 = wxString::Format(wxT("%'14.2f"), impP2);
-    txtFechaB11 = "";
-    if (diaB11 > 0)
-        txtFechaB11 = wxString::Format(wxT("%02d/%02d/%4d"), diaB11, mesB11, anyoB11);
-    txtFechaB12 = "";
-    if (diaB12 > 0)
-        txtFechaB12 = wxString::Format(wxT("%02d/%02d/%4d"), diaB12, mesB12, anyoB12);
-    txtFechaB21 = "";
-    if (diaB21 > 0)
-        txtFechaB21 = wxString::Format(wxT("%02d/%02d/%4d"), diaB21, mesB21, anyoB21);
-    txtFechaB22 = "";
-    if (diaB22 > 0)
-        txtFechaB22 = wxString::Format(wxT("%02d/%02d/%4d"), diaB22, mesB22, anyoB22);
-    txtFechaB31 = "";
-    if (diaB31 > 0)
-        txtFechaB31 = wxString::Format(wxT("%02d/%02d/%4d"), diaB31, mesB31, anyoB31);
-    txtFechaB32 = "";
-    if (diaB32 > 0)
-        txtFechaB32 = wxString::Format(wxT("%02d/%02d/%4d"), diaB32, mesB32, anyoB32);
+    txtFechaB1 = "";
+    if (diaB1 > 0)
+        txtFechaB1 = wxString::Format(wxT("%02d/%02d/%4d"), diaB1, mesB1, anyoB1);
+    txtFechaB2 = "";
+    if (diaB2 > 0)
+        txtFechaB2 = wxString::Format(wxT("%02d/%02d/%4d"), diaB2, mesB2, anyoB2);
+    txtFechaB3 = "";
+    if (diaB3 > 0)
+        txtFechaB3 = wxString::Format(wxT("%02d/%02d/%4d"), diaB3, mesB3, anyoB3);
+    txtFechaB4 = "";
+    if (diaB4 > 0)
+        txtFechaB4 = wxString::Format(wxT("%02d/%02d/%4d"), diaB4, mesB4, anyoB4);
+    txtFechaB5 = "";
+    if (diaB5 > 0)
+        txtFechaB5 = wxString::Format(wxT("%02d/%02d/%4d"), diaB5, mesB5, anyoB5);
+    txtFechaB6 = "";
+    if (diaB6 > 0)
+        txtFechaB6 = wxString::Format(wxT("%02d/%02d/%4d"), diaB6, mesB6, anyoB6);
     txtFechaP1 = wxString::Format(wxT("%02d/%02d/%4d"), diaP1, mesP1, anyoP1);
     txtFechaP2 = wxString::Format(wxT("%02d/%02d/%4d"), diaP2, mesP2, anyoP2);
 
@@ -292,19 +222,19 @@ wxString MainDialog::CreatePdf()
     pdf.Cell(1, 10,wxT(" "),0,1);
     pdf.Cell(80);
     pdf.Cell(35, 10,wxT("Saldo anterior"), wxPDF_BORDER_NONE, 0);
-    pdf.Cell(60, 10, txtSaldoAnt, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(60, 10, m_saldoAnteriorTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
     pdf.Cell(80);
     pdf.Cell(35, 10,wxT("Crédito concedido"), wxPDF_BORDER_NONE, 0);
     pdf.Cell(30);
-    pdf.Cell(30, 10, txtCtoConce, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_creditoConcedidoTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
     pdf.Cell(80);
     pdf.Cell(35, 10,wxT("Crédito cobrado"), wxPDF_BORDER_NONE, 0);
     pdf.Cell(30);
-    pdf.Cell(30, 10, txtCtoCobro, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_creditoCobradoTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
     pdf.Cell(80);
     pdf.Cell(35, 10,wxT("Saldo hoy"), wxPDF_BORDER_NONE, 0);
     pdf.Cell(30);
-    pdf.Cell(30, 10, txtSaldoFin, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_saldoFinalTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Previsión de pagos
     pdf.Cell(1, 10,wxT(" "),0,1);
@@ -312,183 +242,248 @@ wxString MainDialog::CreatePdf()
     pdf.Cell(5);
     pdf.Cell(60, 10, m_banco1textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
     pdf.Cell(20);
-    pdf.Cell(20, 10, txtFechaB11, 0, 0);
+    pdf.Cell(20, 10, txtFechaB1, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpB11, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
-
-    pdf.Cell(85);
-    pdf.Cell(20, 10, txtFechaB12, 0, 0);
-    pdf.Cell(40);
-    //if ( isOK ) 
-    pdf.Cell(30, 10, txtImpB12, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importe1textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Banco 2º
     pdf.Cell(5);
     pdf.Cell(60, 10, m_banco2textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
     pdf.Cell(20);
-    pdf.Cell(20, 10, txtFechaB21, 0, 0);
+    pdf.Cell(20, 10, txtFechaB2, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpB21, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
-
-    pdf.Cell(85);
-    pdf.Cell(20, 10, txtFechaB22, 0, 0);
-    pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpB22, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importe2textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Banco 3º
     pdf.Cell(5);
     pdf.Cell(60, 10, m_banco3textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
     pdf.Cell(20);
-    pdf.Cell(20, 10, txtFechaB31, 0, 0);
+    pdf.Cell(20, 10, txtFechaB3, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpB31, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importe3textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
-    pdf.Cell(85);
-    pdf.Cell(20, 10, txtFechaB32, 0, 0);
+    // Banco 4º
+    pdf.Cell(5);
+    pdf.Cell(60, 10, m_banco4textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
+    pdf.Cell(20);
+    pdf.Cell(20, 10, txtFechaB4, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpB32, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importe4textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+
+    // Banco 5º
+    pdf.Cell(5);
+    pdf.Cell(60, 10, m_banco5textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
+    pdf.Cell(20);
+    pdf.Cell(20, 10, txtFechaB5, 0, 0);
+    pdf.Cell(40);
+    pdf.Cell(30, 10, m_importe5textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+
+    // Banco 6º
+    pdf.Cell(5);
+    pdf.Cell(60, 10, m_banco6textCtrl->GetValue(), wxPDF_BORDER_NONE, 0);
+    pdf.Cell(20);
+    pdf.Cell(20, 10, txtFechaB6, 0, 0);
+    pdf.Cell(40);
+    pdf.Cell(30, 10, m_importe6textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Total de pagarés
     pdf.Cell(1, 10,wxT(" "),0,1);
     pdf.Cell(25);
     pdf.Cell(90, 10, wxT("Suma total de pagos pendientes"), wxPDF_BORDER_NONE, 0);
     pdf.Cell(30);
-    pdf.Cell(30, 10, txtTotPagos, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importeTotalVencimientosTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
     
     // Cartera de pagarés
     pdf.Cell(1, 10,wxT(" "),0,1);
     pdf.Cell(25);
     pdf.Cell(90, 10, wxT("Total en pagarés de clientes en cartera"), wxPDF_BORDER_NONE, 0);
     pdf.Cell(30);
-    pdf.Cell(30, 10, txtTotCobros, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_totalPagaresEnCarteraTextCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
     
     pdf.Cell(1, 10,wxT(" "),0,1);
     pdf.Cell(5);
-    pdf.Cell(80, 10, wxT("Total en pagarés hasta"), wxPDF_BORDER_NONE, 0);
+    pdf.Cell(80, 10, wxT("Total en pagarés hasta...................................."), wxPDF_BORDER_NONE, 0);
     pdf.Cell(20, 10, txtFechaP1, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpP1, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importePrevision1textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     pdf.Cell(5);
     pdf.Cell(80, 10, wxT("Total en pagarés hasta...................................."), wxPDF_BORDER_NONE, 0);
     pdf.Cell(20, 10, txtFechaP2, 0, 0);
     pdf.Cell(40);
-    pdf.Cell(30, 10, txtImpP2, wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
+    pdf.Cell(30, 10, m_importePrevision2textCtrl->GetValue(), wxPDF_BORDER_NONE, 1, wxPDF_ALIGN_RIGHT);
 
     // Crear archivo
     wxString myFic(wxString::Format(wxT("MailPataleta%02d.pdf"), fecha.GetDay()));
     pdf.SaveAsFile(myFic);
-    
+ 
+    return( myFic );
+}
+
+void MainDialog::SaveData()
+{
     // Salvar en la base de datos
+    wxDateTime fecha( m_fechaInformeDatePicker->GetValue() );
+    int dia = fecha.GetDay();
+    int mes = fecha.GetMonth() + 1;
+    int anyo = fecha.GetYear();
+    double saldoAnt;// = 456987.20;
+    double ctoConce;
+    double ctoCobro;
+    double saldoFin;
+    double impB1;
+    double impB2;
+    double impB3;
+    double impB4;
+    double impB5;
+    double impB6;
+    double totPagos;
+    double totCobros;
+    double impP1;
+    double impP2;
+
+    //    m_saldoAnteriorTextCtrl->GetValue().ToDouble(&saldoAnt);
+    saldoAnt=ImporteDe(m_saldoAnteriorTextCtrl->GetValue());
+    //m_creditoConcedidoTextCtrl->GetValue().ToDouble(&ctoConce);
+    ctoConce=ImporteDe(m_creditoConcedidoTextCtrl->GetValue());
+    //m_creditoCobradoTextCtrl->GetValue().ToDouble(&ctoCobro);
+    ctoCobro=ImporteDe(m_creditoCobradoTextCtrl->GetValue());
+    //m_saldoFinalTextCtrl->GetValue().ToDouble(&saldoFin);
+    saldoFin=ImporteDe(m_saldoFinalTextCtrl->GetValue());
+    //m_importe1textCtrl->GetValue().ToDouble(&impB1);
+    impB1=ImporteDe(m_importe1textCtrl->GetValue());
+    //m_importe2textCtrl->GetValue().ToDouble(&impB2);
+    impB2=ImporteDe(m_importe2textCtrl->GetValue());
+    //m_importe3textCtrl->GetValue().ToDouble(&impB3);
+    impB3=ImporteDe(m_importe3textCtrl->GetValue());
+    //m_importe4textCtrl->GetValue().ToDouble(&impB4);
+    impB4=ImporteDe(m_importe4textCtrl->GetValue());
+    //m_importe5textCtrl->GetValue().ToDouble(&impB5);
+    impB5=ImporteDe(m_importe5textCtrl->GetValue());
+    //m_importe6textCtrl->GetValue().ToDouble(&impB6);
+    impB6=ImporteDe(m_importe6textCtrl->GetValue());
+    //m_importeTotalVencimientosTextCtrl->GetValue().ToDouble(&totPagos);
+    totPagos=ImporteDe(m_importeTotalVencimientosTextCtrl->GetValue());
+    //m_totalPagaresEnCarteraTextCtrl->GetValue().ToDouble(&totCobros);
+    totCobros=ImporteDe(m_totalPagaresEnCarteraTextCtrl->GetValue());
+    //m_importePrevision1textCtrl->GetValue().ToDouble(&impP1);
+    impP1=ImporteDe(m_importePrevision1textCtrl->GetValue());
+    //m_importePrevision2textCtrl->GetValue().ToDouble(&impP2);
+    impP2=ImporteDe(m_importePrevision2textCtrl->GetValue());
+    int m_dia;
+    int m_mes;
+    int m_anyo;
+    m_dia = m_banco1datePicker->GetValue().GetDay();
+    m_mes = m_banco1datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco1datePicker->GetValue().GetYear();
+    wxString txtFechaB1;//("2018-12-31");
+    txtFechaB1.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_banco2datePicker->GetValue().GetDay();
+    m_mes = m_banco2datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco2datePicker->GetValue().GetYear();
+    wxString txtFechaB2;
+    txtFechaB2.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_banco3datePicker->GetValue().GetDay();
+    m_mes = m_banco3datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco3datePicker->GetValue().GetYear();
+    wxString txtFechaB3;
+    txtFechaB3.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_banco4datePicker->GetValue().GetDay();
+    m_mes = m_banco4datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco4datePicker->GetValue().GetYear();
+    wxString txtFechaB4;
+    txtFechaB4.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_banco5datePicker->GetValue().GetDay();
+    m_mes = m_banco5datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco5datePicker->GetValue().GetYear();
+    wxString txtFechaB5;
+    txtFechaB5.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_banco6datePicker->GetValue().GetDay();
+    m_mes = m_banco6datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_banco6datePicker->GetValue().GetYear();
+    wxString txtFechaB6;
+    txtFechaB6.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_prevision1datePicker->GetValue().GetDay();
+    m_mes = m_prevision1datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_prevision1datePicker->GetValue().GetYear();
+    wxString txtFechaP1;
+    txtFechaP1.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+    m_dia = m_prevision2datePicker->GetValue().GetDay();
+    m_mes = m_prevision2datePicker->GetValue().GetMonth()+1;
+    m_anyo = m_prevision2datePicker->GetValue().GetYear();
+    wxString txtFechaP2;
+    txtFechaP2.Printf("%04d-%02d-%02d", m_anyo, m_mes, m_dia);
+
     wxSQLite3Database* db = initDB();
-    setlocale(LC_ALL, "C");
-    wxString sentencia = wxT("INSERT INTO tabla VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    wxString sentencia = wxT("INSERT INTO tabla (");
+        sentencia += wxT("Fecha");
+        sentencia += wxT(", SaldoAnterior");
+        sentencia += wxT(", CreditoConcedido");
+        sentencia += wxT(", CreditoCobrado");
+        sentencia += wxT(", Banco1Nombre");
+        sentencia += wxT(", Banco1Fecha");
+        sentencia += wxT(", Banco1Importe");
+        sentencia += wxT(", Banco2Nombre");
+        sentencia += wxT(", Banco2Fecha");
+        sentencia += wxT(", Banco2Importe");
+        sentencia += wxT(", Banco3Nombre");
+        sentencia += wxT(", Banco3Fecha");
+        sentencia += wxT(", Banco3Importe");
+        sentencia += wxT(", Banco4Nombre");
+        sentencia += wxT(", Banco4Fecha");
+        sentencia += wxT(", Banco4Importe");
+        sentencia += wxT(", Banco5Nombre");
+        sentencia += wxT(", Banco5Fecha");
+        sentencia += wxT(", Banco5Importe");
+        sentencia += wxT(", Banco6Nombre");
+        sentencia += wxT(", Banco6Fecha");
+        sentencia += wxT(", Banco6Importe");
+        sentencia += wxT(", Pagares");
+        sentencia += wxT(", CobroVto1Fecha");
+        sentencia += wxT(", CobroVto1Importe");
+        sentencia += wxT(", CobroVto2Fecha");
+        sentencia += wxT(", CobroVto2Importe");
+        sentencia += ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     try
     {
-    wxSQLite3Statement stmt = db->PrepareStatement(sentencia);
-    wxString tmpsentencia;
-    //tmpsentencia.Printf(wxT("%c%4d-%02d-%02d%c"), 0x22, anyo, mes, dia, 0x22);    //Fecha TEXT
-    tmpsentencia.Printf(wxT("%4d-%02d-%02d"), anyo, mes, dia);    //Fecha TEXT
-    stmt.Bind(1, tmpsentencia);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT("%14.2f"), saldoAnt);   //SaldoAnterior REAL
-    stmt.Bind(2, saldoAnt);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), ctoConce);   //CreditoConcedido REAL
-    stmt.Bind(3, ctoConce);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), ctoCobro);   //CreditoCobrado REAL
-    stmt.Bind(4, ctoCobro);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco1textCtrl->GetValue(), 0x22);   //PrimerBanco TEXT
-    stmt.Bind(5, m_banco1textCtrl->GetValue());
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco2textCtrl->GetValue(), 0x22);   //SegundoBanco TEXT
-    stmt.Bind(6, m_banco2textCtrl->GetValue());
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, m_banco3textCtrl->GetValue(), 0x22);   //TercerBanco TEXT
-    stmt.Bind(7, m_banco3textCtrl->GetValue());
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB11, 0x22);    //Banco1Vto1Fecha TEXT
-    stmt.Bind(8, txtFechaB11);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB12, 0x22);    //Banco1Vto2Fecha TEXT
-    stmt.Bind(9, txtFechaB12);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB21, 0x22);    //Banco2Vto1Fecha TEXT
-    stmt.Bind(10, txtFechaB21);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB22, 0x22);    //Banco2Vto2Fecha TEXT
-    stmt.Bind(11, txtFechaB22);
-    //tmpsentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB31, 0x22);    //Banco3Vto1Fecha TEXT
-    stmt.Bind(12, txtFechaB31);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaB32, 0x22);    //Banco3Vto2Fecha TEXT
-    stmt.Bind(13, txtFechaB32);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB11);    //Banco1Vto1Importe REAL
-    stmt.Bind(14, impB11);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB12);    //Banco1Vto2Importe REAL
-    stmt.Bind(15, impB12);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB21);    //Banco2Vto1Importe REAL
-    stmt.Bind(16, impB21);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB22);    //Banco2Vto2Importe REAL
-    stmt.Bind(17, impB21);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB31);    //Banco3Vto1Importe REAL
-    stmt.Bind(18, impB31);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impB32);    //Banco3Vto2Importe REAL
-    stmt.Bind(19, impB32);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), totCobros);    //Pagares REAL
-    stmt.Bind(20, totCobros);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaP1, 0x22);    //CobroVto1Fecha TEXT
-    stmt.Bind(21, txtFechaP1);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%c%s%c"), 0x22, txtFechaP2, 0x22);    //CobroVto2Fecha TEXT
-    stmt.Bind(22, txtFechaP2);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f"), impP1);    //CobroVto1Importe TEXT
-    stmt.Bind(23, impP1);
-    //sentencia += tmpsentencia; 
-    //tmpsentencia.Printf(wxT(",%14.2f)"), impP2);    //CobroVto2Importe TEXT
-    stmt.Bind(24, impP2);
-    //sentencia += tmpsentencia; 
-    /*
-        sentencia += wxT("(Fecha TEXT");
-        sentencia += wxT(", SaldoAnterior REAL");
-        sentencia += wxT(", CreditoConcedido REAL");
-        sentencia += wxT(", CreditoCobrado REAL");
-        sentencia += wxT(", PrimerBanco TEXT");
-        sentencia += wxT(", SegundoBanco TEXT");
-        sentencia += wxT(", TercerBanco TEXT");
-        sentencia += wxT(", Banco1Vto1Fecha TEXT");
-        sentencia += wxT(", Banco1Vto1Importe REAL");
-        sentencia += wxT(", Banco1Vto2Fecha TEXT");
-        sentencia += wxT(", Banco1Vto2Importe REAL");
-        sentencia += wxT(", Banco2Vto1Fecha TEXT");
-        sentencia += wxT(", Banco2Vto1Importe REAL");
-        sentencia += wxT(", Banco2Vto2Fecha TEXT");
-        sentencia += wxT(", Banco2Vto2Importe REAL");
-        sentencia += wxT(", Banco3Vto1Fecha TEXT");
-        sentencia += wxT(", Banco3Vto1Importe REAL");
-        sentencia += wxT(", Banco3Vto2Fecha TEXT");
-        sentencia += wxT(", Banco3Vto2Importe REAL");
-        sentencia += wxT(", Pagares REAL");
-        sentencia += wxT(", CobroVto1Fecha TEXT");
-        sentencia += wxT(", CobroVto1Importe REAL");
-        sentencia += wxT(", CobroVto2Fecha TEXT");
-        sentencia += wxT(", CobroVto2Importe REAL)");
-     */
+        wxSQLite3Statement stmt = db->PrepareStatement(sentencia);
+        wxString tmpsentencia;
+        tmpsentencia.Printf(wxT("%4d-%02d-%02d"), anyo, mes, dia);    //Fecha TEXT
+        stmt.Bind(1, tmpsentencia);
+        stmt.Bind(2, saldoAnt);
+        stmt.Bind(3, ctoConce);
+        stmt.Bind(4, ctoCobro);
+        stmt.Bind(5, m_banco1textCtrl->GetValue());
+        stmt.Bind(6, txtFechaB1);
+        stmt.Bind(7, impB1);
+        stmt.Bind(8, m_banco2textCtrl->GetValue());
+        stmt.Bind(9, txtFechaB2);
+        stmt.Bind(10, impB2);
+        stmt.Bind(11, m_banco3textCtrl->GetValue());
+        stmt.Bind(12, txtFechaB3);
+        stmt.Bind(13, impB3);
+        stmt.Bind(14, m_banco4textCtrl->GetValue());
+        stmt.Bind(15, txtFechaB4);
+        stmt.Bind(16, impB4);
+        stmt.Bind(17, m_banco5textCtrl->GetValue());
+        stmt.Bind(18, txtFechaB5);
+        stmt.Bind(19, impB5);
+        stmt.Bind(20, m_banco6textCtrl->GetValue());
+        stmt.Bind(21, txtFechaB6);
+        stmt.Bind(22, impB6);
+        stmt.Bind(23, totCobros);
+        stmt.Bind(24, txtFechaP1);
+        stmt.Bind(25, impP1);
+        stmt.Bind(26, txtFechaP2);
+        stmt.Bind(27, impP2);
         int res = 0;
-        //db->ExecuteUpdate(sentencia);
         res = stmt.ExecuteUpdate();
+    }
+    catch(wxSQLite3Exception& e)
+    {
+        wxString msg;
+        msg.Printf(wxT("%s %d: %s"), wxT("INSERT ha provocado un error "), e.GetErrorCode(),e.GetMessage().ToUTF8());
+        wxMessageBox(msg);
     }
     catch (...)
     {
@@ -496,12 +491,7 @@ wxString MainDialog::CreatePdf()
     }
 
     clearDB(db);
-    // Restore locale C
-    setlocale(LC_ALL, "");
-    
-    return( myFic );
 }
-
 void MainDialog::OnCreditoCobradoUpdated(wxCommandEvent& event)
 {
     UpdateSaldoFinal();
@@ -519,17 +509,10 @@ void MainDialog::OnSaldoAnteriorUpdated(wxCommandEvent& event)
 
 void MainDialog::UpdateSaldoFinal()
 {
-    bool isOK;
     double tmpSaldoInicial, tmpCreditoConcedido, tmpCreditoCobrado, tmpSaldoFinal;
-    wxString valorCtrl;
-    isOK = m_saldoAnteriorTextCtrl->GetValue().ToDouble(&tmpSaldoInicial);
-    isOK = m_creditoConcedidoTextCtrl->GetValue().ToDouble(&tmpCreditoConcedido);
-//    valorCtrl = m_creditoCobradoTextCtrl->GetValue();
-//    isOK = valorCtrl.ToCDouble(&tmpCreditoCobrado);
-    isOK = m_creditoCobradoTextCtrl->GetValue().ToDouble(&tmpCreditoCobrado);
-    if (!isOK)
-        tmpSaldoFinal = 0;
-        //wxMessageBox(wxT("No he podido convertir el crédito cobrado."));
+    tmpSaldoInicial = ImporteDe(m_saldoAnteriorTextCtrl->GetValue());
+    tmpCreditoConcedido = ImporteDe(m_creditoConcedidoTextCtrl->GetValue());
+    tmpCreditoCobrado = ImporteDe(m_creditoCobradoTextCtrl->GetValue());
     tmpSaldoFinal = tmpSaldoInicial + tmpCreditoConcedido - tmpCreditoCobrado;
     wxString txtSaldoFinal( wxString::Format(wxT("%'14.2f"), tmpSaldoFinal) );
     m_saldoFinalTextCtrl->SetValue(txtSaldoFinal);
@@ -567,25 +550,19 @@ void MainDialog::OnImporte2Banco3Updated(wxCommandEvent& event)
 
 void MainDialog::UpdateTotalPagos()
 {
-    bool isOK;
-    double tmpImp1B1, tmpImp2B1, tmpImp1B2, tmpImp2B2, tmpImp1B3, tmpImp2B3, tmpTotal;
-    isOK = m_importe1banco1textCtrl->GetValue().ToDouble(&tmpImp1B1);
-    isOK = m_importe2banco1textCtrl->GetValue().ToDouble(&tmpImp2B1);
-    isOK = m_importe1banco2textCtrl->GetValue().ToDouble(&tmpImp1B2);
-    isOK = m_importe2banco2textCtrl->GetValue().ToDouble(&tmpImp2B2);
-    isOK = m_importe1banco3textCtrl->GetValue().ToDouble(&tmpImp1B3);
-    isOK = m_importe2banco3textCtrl->GetValue().ToDouble(&tmpImp2B3);
-    if (!isOK)
-        tmpTotal = 0;
-        //wxMessageBox(wxT("No he podido convertir el 2º importe del 3er banco."));
-    tmpTotal = tmpImp1B1 + tmpImp2B1 + tmpImp1B2 + tmpImp2B2 + tmpImp1B3 + tmpImp2B3;
+    double tmpImp1 = ImporteDe(m_importe1textCtrl->GetValue());
+    double tmpImp2 = ImporteDe(m_importe2textCtrl->GetValue());
+    double tmpImp3 = ImporteDe(m_importe3textCtrl->GetValue());
+    double tmpImp4 = ImporteDe(m_importe4textCtrl->GetValue());
+    double tmpImp5 = ImporteDe(m_importe5textCtrl->GetValue());
+    double tmpImp6 = ImporteDe(m_importe6textCtrl->GetValue());
+    double tmpTotal = tmpImp1 + tmpImp2 + tmpImp3 + tmpImp4 + tmpImp5 + tmpImp6;
     wxString txtTotal( wxString::Format(wxT("%'14.2f"), tmpTotal) );
     m_importeTotalVencimientosTextCtrl->SetValue(txtTotal);
 }
 
 void MainDialog::OpenPdf( wxString filePdf )
 {
-    //wxString gs_lastFile = m_filePicker21->GetPath();   //GetFileName().GetFullName();
     wxString ext = wxFileName(filePdf).GetExt();
     wxFileType *ft = wxTheMimeTypesManager->GetFileTypeFromExtension(ext);
     if ( !ft )
@@ -601,6 +578,9 @@ void MainDialog::OpenPdf( wxString filePdf )
 #ifdef __WXMSW__
     // try editor, for instance Notepad if extension is .xml
     cmd = ft->GetExpandedCommand(wxT("AcroRd32"), params);
+    ok = !cmd.empty();
+#else
+    cmd = ft->GetExpandedCommand(wxT("/usr/bin/evince"), params);
     ok = !cmd.empty();
 #endif
     if (!ok) // else try viewer
@@ -621,5 +601,20 @@ void MainDialog::OpenPdf( wxString filePdf )
 
 void MainDialog::SendPdf( wxString filePdf )
 {
-    
+    wxMessageBox(wxT("Envío por e-mail"), wxT("Send"));
 }
+
+double MainDialog::ImporteDe(const wxString& txt)
+{
+    double importe;
+    wxString txt_tmp(txt);
+    txt_tmp.Replace(".","",true);
+    txt_tmp.ToDouble(&importe);
+    return(importe);
+}
+
+/*bool MainDialog::TransferDataToWindow()
+{
+    bool r = wxDialog::TransferDataToWindow();
+    return r;
+}*/

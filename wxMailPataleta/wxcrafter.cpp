@@ -53,7 +53,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer25->Add(m_staticText27, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::saldo_anterior, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_saldoAnteriorTextCtrl->SetToolTip(wxT("Es el saldo pendiente de clientes hasta ayer."));
     #if wxVERSION_NUMBER >= 3000
     m_saldoAnteriorTextCtrl->SetHint(wxT(""));
@@ -65,7 +65,8 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer25->Add(m_staticText31, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_creditoConcedidoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoConcedidoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::credito_concedido, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoConcedidoTextCtrl->SetToolTip(wxT("Importe del crédito concedido hoy"));
     #if wxVERSION_NUMBER >= 3000
     m_creditoConcedidoTextCtrl->SetHint(wxT(""));
     #endif
@@ -76,7 +77,8 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer25->Add(m_staticText35, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_creditoCobradoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoCobradoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::credito_cobrado, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_creditoCobradoTextCtrl->SetToolTip(wxT("Importe del crédito cobrado hoy"));
     #if wxVERSION_NUMBER >= 3000
     m_creditoCobradoTextCtrl->SetHint(wxT(""));
     #endif
@@ -87,7 +89,8 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer25->Add(m_staticText39, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_saldoFinalTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoFinalTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::saldo_final, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoFinalTextCtrl->SetToolTip(wxT("Crédito final. Se obtiene sumando el crédito concedido al saldo inicial y restando el crédito cobrado."));
     #if wxVERSION_NUMBER >= 3000
     m_saldoFinalTextCtrl->SetHint(wxT(""));
     #endif
@@ -111,122 +114,150 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     flexGridSizer49->Add(m_staticText55, 4, wxALL, WXC_FROM_DIP(5));
     
     m_banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
-    m_banco1textCtrl->SetToolTip(wxT("Nombre del primer banco del vencimiento más próximo"));
+    m_banco1textCtrl->SetToolTip(wxT("Nombre del banco del primer vencimiento"));
     #if wxVERSION_NUMBER >= 3000
     m_banco1textCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer49->Add(m_banco1textCtrl, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento1banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
-    m_vencimiento1banco1datePicker->SetToolTip(wxT("Fecha de vencimiento más próximo del primer banco"));
+    m_banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco1datePicker->SetToolTip(wxT("Fecha del primer vencimiento."));
     
-    flexGridSizer49->Add(m_vencimiento1banco1datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_banco1datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe1banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
-    m_importe1banco1textCtrl->SetToolTip(wxT("Importe del vencimiento más próximo del primer banco"));
+    m_importe1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco1_vto1, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe1textCtrl->SetToolTip(wxT("Importe del primer vencimiento."));
     #if wxVERSION_NUMBER >= 3000
-    m_importe1banco1textCtrl->SetHint(wxT(""));
+    m_importe1textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe1banco1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_importe1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
     m_staticText63 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
     flexGridSizer49->Add(m_staticText63, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
-    
-    m_vencimiento2banco1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
-    
-    flexGridSizer49->Add(m_vencimiento2banco1datePicker, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_importe2banco1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
+    m_banco2textCtrl->SetToolTip(wxT("Nombre del banco del segundo vencimiento"));
     #if wxVERSION_NUMBER >= 3000
-    m_importe2banco1textCtrl->SetHint(wxT(""));
+    m_banco2textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe2banco1textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_banco2textCtrl, 0, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco2datePicker->SetToolTip(wxT("Fecha del segundo vencimiento."));
+    
+    flexGridSizer49->Add(m_banco2datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_importe2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco1_vto2, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe2textCtrl->SetToolTip(wxT("Importe del segundo vencimiento."));
+    #if wxVERSION_NUMBER >= 3000
+    m_importe2textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_importe2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
     m_staticText73 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
     flexGridSizer49->Add(m_staticText73, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
-    m_banco2textCtrl->SetToolTip(wxT("Segundo banco con un vencimiento pendiente"));
-    #if wxVERSION_NUMBER >= 3000
-    m_banco2textCtrl->SetHint(wxT(""));
-    #endif
-    
-    flexGridSizer49->Add(m_banco2textCtrl, 2, wxALL, WXC_FROM_DIP(5));
-    
-    m_vencimiento1banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
-    
-    flexGridSizer49->Add(m_vencimiento1banco2datePicker, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_importe1banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
-    #if wxVERSION_NUMBER >= 3000
-    m_importe1banco2textCtrl->SetHint(wxT(""));
-    #endif
-    
-    flexGridSizer49->Add(m_importe1banco2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_staticText81 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
-    
-    flexGridSizer49->Add(m_staticText81, 4, wxALL, WXC_FROM_DIP(5));
-    
-    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
-    
-    m_vencimiento2banco2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
-    
-    flexGridSizer49->Add(m_vencimiento2banco2datePicker, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_importe2banco2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
-    #if wxVERSION_NUMBER >= 3000
-    m_importe2banco2textCtrl->SetHint(wxT(""));
-    #endif
-    
-    flexGridSizer49->Add(m_importe2banco2textCtrl, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_staticText89 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
-    
-    flexGridSizer49->Add(m_staticText89, 4, wxALL, WXC_FROM_DIP(5));
-    
     m_banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
-    m_banco3textCtrl->SetToolTip(wxT("Tercer banco con vencimientos pendientes"));
+    m_banco3textCtrl->SetToolTip(wxT("Nombre del banco del tercer vencimiento"));
     #if wxVERSION_NUMBER >= 3000
     m_banco3textCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer49->Add(m_banco3textCtrl, 2, wxALL, WXC_FROM_DIP(5));
     
-    m_vencimiento1banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
+    m_banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco3datePicker->SetToolTip(wxT("Fecha del tercer vencimiento."));
     
-    flexGridSizer49->Add(m_vencimiento1banco3datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_banco3datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importe1banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco2_vto1, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe3textCtrl->SetToolTip(wxT("Importe del tercer vencimiento."));
     #if wxVERSION_NUMBER >= 3000
-    m_importe1banco3textCtrl->SetHint(wxT(""));
+    m_importe3textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe1banco3textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_importe3textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_staticText81 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
+    
+    flexGridSizer49->Add(m_staticText81, 4, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco4textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
+    m_banco4textCtrl->SetToolTip(wxT("Nombre del banco del cuarto vencimiento"));
+    #if wxVERSION_NUMBER >= 3000
+    m_banco4textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_banco4textCtrl, 0, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco4datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco4datePicker->SetToolTip(wxT("Fecha del cuarto vencimiento."));
+    
+    flexGridSizer49->Add(m_banco4datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_importe4textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco2_vto2, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe4textCtrl->SetToolTip(wxT("Importe del cuarto vencimiento."));
+    #if wxVERSION_NUMBER >= 3000
+    m_importe4textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_importe4textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_staticText89 = new wxStaticText(m_panel17, wxID_ANY, wxT("Próximo vencimiento de"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
+    
+    flexGridSizer49->Add(m_staticText89, 4, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco5textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_PROCESS_ENTER);
+    m_banco5textCtrl->SetToolTip(wxT("Nombre del banco del quinto vencimiento"));
+    #if wxVERSION_NUMBER >= 3000
+    m_banco5textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_banco5textCtrl, 2, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco5datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco5datePicker->SetToolTip(wxT("Fecha del quinto vencimiento."));
+    
+    flexGridSizer49->Add(m_banco5datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_importe5textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco3_vto1, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe5textCtrl->SetToolTip(wxT("Importe del quinto vencimiento."));
+    #if wxVERSION_NUMBER >= 3000
+    m_importe5textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_importe5textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
     m_staticText97 = new wxStaticText(m_panel17, wxID_ANY, wxT("Siguiente vencimiento"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     
     flexGridSizer49->Add(m_staticText97, 4, wxALL, WXC_FROM_DIP(5));
     
-    flexGridSizer49->Add(0, 0, 2, wxALL, WXC_FROM_DIP(5));
-    
-    m_vencimiento2banco3datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE|wxDP_DEFAULT);
-    
-    flexGridSizer49->Add(m_vencimiento2banco3datePicker, 1, wxALL, WXC_FROM_DIP(5));
-    
-    m_importe2banco3textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_banco6textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT(""), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
+    m_banco6textCtrl->SetToolTip(wxT("Nombre del banco del sexto vencimiento"));
     #if wxVERSION_NUMBER >= 3000
-    m_importe2banco3textCtrl->SetHint(wxT(""));
+    m_banco6textCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer49->Add(m_importe2banco3textCtrl, 1, wxALL, WXC_FROM_DIP(5));
+    flexGridSizer49->Add(m_banco6textCtrl, 0, wxALL, WXC_FROM_DIP(5));
+    
+    m_banco6datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_ALLOWNONE);
+    m_banco6datePicker->SetToolTip(wxT("Fecha del sexto vencimiento."));
+    
+    flexGridSizer49->Add(m_banco6datePicker, 1, wxALL, WXC_FROM_DIP(5));
+    
+    m_importe6textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_banco3_vto2, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importe6textCtrl->SetToolTip(wxT("Importe del sexto vencimiento."));
+    #if wxVERSION_NUMBER >= 3000
+    m_importe6textCtrl->SetHint(wxT(""));
+    #endif
+    
+    flexGridSizer49->Add(m_importe6textCtrl, 1, wxALL, WXC_FROM_DIP(5));
     
     m_staticText127 = new wxStaticText(m_panel17, wxID_ANY, wxT("Suma total de pagos pendientes"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), 0);
     wxFont m_staticText127Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
@@ -239,7 +270,8 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer49->Add(0, 0, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importeTotalVencimientosTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importeTotalVencimientosTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_total_bancos, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importeTotalVencimientosTextCtrl->SetToolTip(wxT("Suma de todos los vencimientos."));
     #if wxVERSION_NUMBER >= 3000
     m_importeTotalVencimientosTextCtrl->SetHint(wxT(""));
     #endif
@@ -266,7 +298,8 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer107->Add(0, 0, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_totalPagaresEnCarteraTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_totalPagaresEnCarteraTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::total_cobros, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_totalPagaresEnCarteraTextCtrl->SetToolTip(wxT("Importe total de los pagarés de clientes en cartera."));
     #if wxVERSION_NUMBER >= 3000
     m_totalPagaresEnCarteraTextCtrl->SetHint(wxT(""));
     #endif
@@ -278,10 +311,11 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     flexGridSizer107->Add(m_staticText115, 3, wxALL, WXC_FROM_DIP(5));
     
     m_prevision1datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT);
+    m_prevision1datePicker->SetToolTip(wxT("Fecha tope para primer vencimiento"));
     
     flexGridSizer107->Add(m_prevision1datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importePrevision1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importePrevision1textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_prevision1, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_importePrevision1textCtrl->SetToolTip(wxT("Importe de los pagarés hasta la fecha"));
     #if wxVERSION_NUMBER >= 3000
     m_importePrevision1textCtrl->SetHint(wxT(""));
@@ -294,10 +328,12 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     flexGridSizer107->Add(m_staticText121, 3, wxALL, WXC_FROM_DIP(5));
     
     m_prevision2datePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT);
+    m_prevision2datePicker->SetToolTip(wxT("Fecha tope para el segundo vencimiento"));
     
     flexGridSizer107->Add(m_prevision2datePicker, 1, wxALL, WXC_FROM_DIP(5));
     
-    m_importePrevision2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0,0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &GlobalVal::importe, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importePrevision2textCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::imp_prevision2, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_importePrevision2textCtrl->SetToolTip(wxT("Importe de pagarés a la fecha"));
     #if wxVERSION_NUMBER >= 3000
     m_importePrevision2textCtrl->SetHint(wxT(""));
     #endif
@@ -353,12 +389,12 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     m_saldoAnteriorTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnSaldoAnteriorUpdated), NULL, this);
     m_creditoConcedidoTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoConcedidoUpdated), NULL, this);
     m_creditoCobradoTextCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoCobradoUpdated), NULL, this);
-    m_importe1banco1textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco1Updated), NULL, this);
-    m_importe2banco1textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco1Updated), NULL, this);
-    m_importe1banco2textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco2Updated), NULL, this);
-    m_importe2banco2textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco2Updated), NULL, this);
-    m_importe1banco3textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
-    m_importe2banco3textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
+    m_importe1textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco1Updated), NULL, this);
+    m_importe2textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco1Updated), NULL, this);
+    m_importe3textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco2Updated), NULL, this);
+    m_importe4textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco2Updated), NULL, this);
+    m_importe5textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
+    m_importe6textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
     m_buttonSEND->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
     
@@ -370,12 +406,12 @@ MainDialogBaseClass::~MainDialogBaseClass()
     m_saldoAnteriorTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnSaldoAnteriorUpdated), NULL, this);
     m_creditoConcedidoTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoConcedidoUpdated), NULL, this);
     m_creditoCobradoTextCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnCreditoCobradoUpdated), NULL, this);
-    m_importe1banco1textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco1Updated), NULL, this);
-    m_importe2banco1textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco1Updated), NULL, this);
-    m_importe1banco2textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco2Updated), NULL, this);
-    m_importe2banco2textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco2Updated), NULL, this);
-    m_importe1banco3textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
-    m_importe2banco3textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
+    m_importe1textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco1Updated), NULL, this);
+    m_importe2textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco1Updated), NULL, this);
+    m_importe3textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco2Updated), NULL, this);
+    m_importe4textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco2Updated), NULL, this);
+    m_importe5textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte1Banco3Updated), NULL, this);
+    m_importe6textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
     m_buttonSEND->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
     

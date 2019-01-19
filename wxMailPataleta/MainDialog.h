@@ -23,9 +23,12 @@ protected:
     virtual void OnButtonOKClicked(wxCommandEvent& event);
     virtual void OnButtonSendClicked(wxCommandEvent& event);
     wxString CreatePdf();
+    void SaveData();
     void SendPdf(wxString filePdf);
     void OpenPdf(wxString filePdf);
     void UpdateSaldoFinal();
     void UpdateTotalPagos();
+    double ImporteDe(const wxString& txt);
+    //bool TransferDataToWindow() wxOVERRIDE;
 };
 #endif // MAINDIALOG_H

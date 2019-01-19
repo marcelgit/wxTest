@@ -11,7 +11,7 @@ MyPdf::~MyPdf()
   void MyPdf::Header()
   {
     // Logo
-    Image(wxT("LogoPataleta.jpg"),10,8,28);
+    Image(wxT("LogoPataleta600x400.png"),10,8,28);
     // Helvetica bold 15
     SetFont(wxT("Helvetica"),wxT("B"),15);
     // Move to the right
