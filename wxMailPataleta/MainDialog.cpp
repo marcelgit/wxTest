@@ -613,6 +613,10 @@ double MainDialog::ImporteDe(const wxString& txt)
     return(importe);
 }
 
+void MainDialog::ReadCurrentData()
+{
+    wxMessageBox(wxT("Lectura del día anterior"), wxT("Read"));
+}
 /*bool MainDialog::TransferDataToWindow()
 {
     bool r = wxDialog::TransferDataToWindow();
