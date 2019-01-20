@@ -82,6 +82,7 @@ MainDialog::~MainDialog()
 
 void MainDialog::OnInitDialog(wxInitDialogEvent &event)
 {
+    ReadCurrentData();
 }
 
 void MainDialog::OnButtonOKClicked(wxCommandEvent& event)
@@ -615,7 +616,95 @@ double MainDialog::ImporteDe(const wxString& txt)
 
 void MainDialog::ReadCurrentData()
 {
-    wxMessageBox(wxT("Lectura del día anterior"), wxT("Read"));
+    double saldoAnt;// = 456987.20;
+    double ctoConce;
+    double ctoCobro;
+    double saldoFin;
+    wxString Nombre1;
+    double impB1;
+    wxString Nombre2;
+    double impB2;
+    wxString Nombre3;
+    double impB3;
+    wxString Nombre4;
+    double impB4;
+    wxString Nombre5;
+    double impB5;
+    wxString Nombre6;
+    double impB6;
+    wxDateTime FechaB1;
+    wxDateTime FechaB2;
+    wxDateTime FechaB3;
+    wxDateTime FechaB4;
+    wxDateTime FechaB5;
+    wxDateTime FechaB6;
+    //wxMessageBox(wxT("Lectura del día anterior"), wxT("Read"));
+    wxDateTime fecha = wxDateTime::Today();
+    int m_dia = fecha.GetDay();
+    int m_mes = fecha.GetMonth() + 1;
+    int m_anyo = fecha.GetYear();
+    wxString query;
+    query.Printf("SELECT * FROM tabla WHERE Fecha < '%04d-%02d-%02d' ORDER BY Fecha DESC LIMIT 1", m_anyo, m_mes, m_dia);
+    wxSQLite3Database* db = initDB();
+    wxSQLite3ResultSet set = db->ExecuteQuery(query);
+    set.NextRow();
+    
+    saldoAnt = set.GetDouble(wxT("SaldoAnterior"));
+    ctoConce = set.GetDouble(wxT("CreditoConcedido"));
+    ctoCobro = set.GetDouble(wxT("CreditoCobrado"));
+    Nombre1 = set.GetAsString(wxT("Banco1Nombre"));
+    FechaB1 = set.GetDate(wxT("Banco1Fecha"));
+    impB1 = set.GetDouble(wxT("Banco1Importe"));
+    Nombre2 = set.GetAsString(wxT("Banco2Nombre"));
+    FechaB2 = set.GetDate(wxT("Banco2Fecha"));
+    impB2 = set.GetDouble(wxT("Banco2Importe"));
+    Nombre3 = set.GetAsString(wxT("Banco3Nombre"));
+    FechaB3 = set.GetDate(wxT("Banco3Fecha"));
+    impB3 = set.GetDouble(wxT("Banco3Importe"));
+    Nombre4 = set.GetAsString(wxT("Banco4Nombre"));
+    FechaB4 = set.GetDate(wxT("Banco4Fecha"));
+    impB4 = set.GetDouble(wxT("Banco4Importe"));
+    Nombre5 = set.GetAsString(wxT("Banco5Nombre"));
+    FechaB5 = set.GetDate(wxT("Banco5Fecha"));
+    impB5 = set.GetDouble(wxT("Banco5Importe"));
+    Nombre6 = set.GetAsString(wxT("Banco6Nombre"));
+    FechaB6 = set.GetDate(wxT("Banco6Fecha"));
+    impB6 = set.GetDouble(wxT("Banco6Importe"));
+    
+    double nuevoSaldoAnterior = saldoAnt + ctoConce - ctoCobro;
+    if (FechaB6.GetValue() < fecha.GetValue())
+    {
+        impB6 = 0.0;
+    }
+    if (FechaB5.GetValue() < fecha.GetValue())
+    {
+        impB5 = 0.0;
+    }
+    if (FechaB4.GetValue() < fecha.GetValue())
+    {
+        impB4 = 0.0;
+    }
+    if (FechaB3.GetValue() < fecha.GetValue())
+    {
+        impB3 = 0.0;
+    }
+    if (FechaB2.GetValue() < fecha.GetValue())
+    {
+        impB2 = 0.0;
+    }
+    if (FechaB1.GetValue() < fecha.GetValue())
+    {
+        impB1 = 0.0;
+    }
+
+    if (impB1 > 0)
+    {
+        m_banco1textCtrl->SetValue(Nombre1);
+        m_banco1datePicker->SetValue(FechaB1);
+        m_importe1textCtrl->SetValue(wxString::Format(wxT("%'14.2f"), impB1));
+    }
+
+    set.Finalize();
 }
 /*bool MainDialog::TransferDataToWindow()
 {
