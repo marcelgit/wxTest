@@ -1,3 +1,5 @@
+#include <vector>
+//#include <algorithm>
 #include <wx/debug.h> 
 #include <wx/msgdlg.h>
 #include <wx/mimetype.h>
@@ -616,28 +618,14 @@ double MainDialog::ImporteDe(const wxString& txt)
 
 void MainDialog::ReadCurrentData()
 {
-    double saldoAnt;// = 456987.20;
-    double ctoConce;
-    double ctoCobro;
-    double saldoFin;
-    wxString Nombre1;
-    double impB1;
-    wxString Nombre2;
-    double impB2;
-    wxString Nombre3;
-    double impB3;
-    wxString Nombre4;
-    double impB4;
-    wxString Nombre5;
-    double impB5;
-    wxString Nombre6;
-    double impB6;
-    wxDateTime FechaB1;
-    wxDateTime FechaB2;
-    wxDateTime FechaB3;
-    wxDateTime FechaB4;
-    wxDateTime FechaB5;
-    wxDateTime FechaB6;
+    struct banco{
+        wxString nombre;
+        double importe;
+        wxDateTime fecha;
+    } b;
+    std::vector<banco> vb1;
+    std::vector<banco> vb2;
+
     //wxMessageBox(wxT("Lectura del día anterior"), wxT("Read"));
     wxDateTime fecha = wxDateTime::Today();
     int m_dia = fecha.GetDay();
@@ -649,62 +637,86 @@ void MainDialog::ReadCurrentData()
     wxSQLite3ResultSet set = db->ExecuteQuery(query);
     set.NextRow();
     
-    saldoAnt = set.GetDouble(wxT("SaldoAnterior"));
-    ctoConce = set.GetDouble(wxT("CreditoConcedido"));
-    ctoCobro = set.GetDouble(wxT("CreditoCobrado"));
-    Nombre1 = set.GetAsString(wxT("Banco1Nombre"));
-    FechaB1 = set.GetDate(wxT("Banco1Fecha"));
-    impB1 = set.GetDouble(wxT("Banco1Importe"));
-    Nombre2 = set.GetAsString(wxT("Banco2Nombre"));
-    FechaB2 = set.GetDate(wxT("Banco2Fecha"));
-    impB2 = set.GetDouble(wxT("Banco2Importe"));
-    Nombre3 = set.GetAsString(wxT("Banco3Nombre"));
-    FechaB3 = set.GetDate(wxT("Banco3Fecha"));
-    impB3 = set.GetDouble(wxT("Banco3Importe"));
-    Nombre4 = set.GetAsString(wxT("Banco4Nombre"));
-    FechaB4 = set.GetDate(wxT("Banco4Fecha"));
-    impB4 = set.GetDouble(wxT("Banco4Importe"));
-    Nombre5 = set.GetAsString(wxT("Banco5Nombre"));
-    FechaB5 = set.GetDate(wxT("Banco5Fecha"));
-    impB5 = set.GetDouble(wxT("Banco5Importe"));
-    Nombre6 = set.GetAsString(wxT("Banco6Nombre"));
-    FechaB6 = set.GetDate(wxT("Banco6Fecha"));
-    impB6 = set.GetDouble(wxT("Banco6Importe"));
-    
+    double saldoAnt = set.GetDouble(wxT("SaldoAnterior"));
+    double ctoConce = set.GetDouble(wxT("CreditoConcedido"));
+    double ctoCobro = set.GetDouble(wxT("CreditoCobrado"));
     double nuevoSaldoAnterior = saldoAnt + ctoConce - ctoCobro;
-    if (FechaB6.GetValue() < fecha.GetValue())
-    {
-        impB6 = 0.0;
-    }
-    if (FechaB5.GetValue() < fecha.GetValue())
-    {
-        impB5 = 0.0;
-    }
-    if (FechaB4.GetValue() < fecha.GetValue())
-    {
-        impB4 = 0.0;
-    }
-    if (FechaB3.GetValue() < fecha.GetValue())
-    {
-        impB3 = 0.0;
-    }
-    if (FechaB2.GetValue() < fecha.GetValue())
-    {
-        impB2 = 0.0;
-    }
-    if (FechaB1.GetValue() < fecha.GetValue())
-    {
-        impB1 = 0.0;
-    }
+    b.nombre = set.GetAsString(wxT("Banco1Nombre"));
+    b.importe = set.GetDouble(wxT("Banco1Importe"));
+    b.fecha = set.GetDate(wxT("Banco1Fecha"));
+    vb1.push_back(b);
+    b.nombre = set.GetAsString(wxT("Banco2Nombre"));
+    b.importe = set.GetDouble(wxT("Banco2Importe"));
+    b.fecha = set.GetDate(wxT("Banco2Fecha"));
+    vb1.push_back(b);
+    b.nombre = set.GetAsString(wxT("Banco3Nombre"));
+    b.importe = set.GetDouble(wxT("Banco3Importe"));
+    b.fecha = set.GetDate(wxT("Banco3Fecha"));
+    vb1.push_back(b);
+    b.nombre = set.GetAsString(wxT("Banco4Nombre"));
+    b.importe = set.GetDouble(wxT("Banco4Importe"));
+    b.fecha = set.GetDate(wxT("Banco4Fecha"));
+    vb1.push_back(b);
+    b.nombre = set.GetAsString(wxT("Banco5Nombre"));
+    b.importe = set.GetDouble(wxT("Banco5Importe"));
+    b.fecha = set.GetDate(wxT("Banco5Fecha"));
+    vb1.push_back(b);
+    b.nombre = set.GetAsString(wxT("Banco6Nombre"));
+    b.importe = set.GetDouble(wxT("Banco6Importe"));
+    b.fecha = set.GetDate(wxT("Banco6Fecha"));
+    vb1.push_back(b);
+    double pagares = set.GetDouble(wxT("Pagares"));
+    wxDateTime vto1fecha = set.GetDate(wxT("CobroVto1Fecha"));
+    double vto1imp = set.GetDouble(wxT("CobroVto1Importe"));
+    wxDateTime vto2fecha = set.GetDouble(wxT("CobroVto2Fecha"));
+    double vto2imp = set.GetDouble(wxT("CobroVto2Importe"));
 
-    if (impB1 > 0)
+    for(std::vector<banco>::iterator i = vb1.begin(); i != vb1.end(); ++i)
     {
-        m_banco1textCtrl->SetValue(Nombre1);
-        m_banco1datePicker->SetValue(FechaB1);
-        m_importe1textCtrl->SetValue(wxString::Format(wxT("%'14.2f"), impB1));
+        if ((0 < i->importe) && (fecha < i->fecha)) vb2.push_back(*i);
     }
-
+    
     set.Finalize();
+
+    m_saldoAnteriorTextCtrl->SetValue(wxString::Format("%'14.2f", saldoAnt));
+    m_creditoConcedidoTextCtrl->SetValue(wxString::Format("%'14.2f", ctoConce));
+    m_creditoCobradoTextCtrl->SetValue(wxString::Format("%'14.2f", ctoCobro));
+    if (0 < vb2.size())
+    {
+        m_banco1textCtrl->SetValue(vb2[0].nombre);
+        m_banco1datePicker->SetValue(vb2[0].fecha);
+        m_importe1textCtrl->SetValue(wxString::Format("%'14.2f", vb2[0].importe));
+    }
+    if (1 < vb2.size())
+    {
+        m_banco2textCtrl->SetValue(vb2[1].nombre);
+        m_banco2datePicker->SetValue(vb2[1].fecha);
+        m_importe2textCtrl->SetValue(wxString::Format("%'14.2f", vb2[1].importe));
+    }
+    if (2 < vb2.size())
+    {
+        m_banco3textCtrl->SetValue(vb2[2].nombre);
+        m_banco3datePicker->SetValue(vb2[2].fecha);
+        m_importe3textCtrl->SetValue(wxString::Format("%'14.2f", vb2[2].importe));
+    }
+    if (3 < vb2.size())
+    {
+        m_banco4textCtrl->SetValue(vb2[3].nombre);
+        m_banco4datePicker->SetValue(vb2[3].fecha);
+        m_importe4textCtrl->SetValue(wxString::Format("%'14.2f", vb2[3].importe));
+    }
+    if (4 < vb2.size())
+    {
+        m_banco5textCtrl->SetValue(vb2[4].nombre);
+        m_banco5datePicker->SetValue(vb2[4].fecha);
+        m_importe5textCtrl->SetValue(wxString::Format("%'14.2f", vb2[4].importe));
+    }
+    if (5 < vb2.size())
+    {
+        m_banco6textCtrl->SetValue(vb2[5].nombre);
+        m_banco6datePicker->SetValue(vb2[5].fecha);
+        m_importe6textCtrl->SetValue(wxString::Format("%'14.2f", vb2[5].importe));
+    }
 }
 /*bool MainDialog::TransferDataToWindow()
 {
