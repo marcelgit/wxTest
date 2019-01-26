@@ -10,6 +10,7 @@ public:
     MainDialog(wxWindow* parent);
     virtual ~MainDialog();
 protected:
+    virtual void OnButtonCancelClicked(wxCommandEvent& event);
     virtual void OnInitDialog(wxInitDialogEvent& event);
     virtual void OnImporte1Banco1Updated(wxCommandEvent& event);
     virtual void OnImporte1Banco2Updated(wxCommandEvent& event);
@@ -31,5 +32,7 @@ protected:
     void UpdateTotalPagos();
     double ImporteDe(const wxString& txt);
     //bool TransferDataToWindow() wxOVERRIDE;
+private:
+    bool es_modificacion;
 };
 #endif // MAINDIALOG_H

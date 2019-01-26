@@ -35,6 +35,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     m_fechaInformeDatePicker = new wxDatePickerCtrl(m_panel17, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxDP_DEFAULT|wxTAB_TRAVERSAL);
     m_fechaInformeDatePicker->SetToolTip(wxT("Fecha del comunicado"));
+    m_fechaInformeDatePicker->Enable(false);
     
     boxSizer19->Add(m_fechaInformeDatePicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, WXC_FROM_DIP(5));
     
@@ -53,7 +54,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     flexGridSizer25->Add(m_staticText27, 4, wxALL, WXC_FROM_DIP(5));
     
-    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::saldo_anterior, wxNUM_VAL_THOUSANDS_SEPARATOR));
+    m_saldoAnteriorTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_READONLY | wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::saldo_anterior, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_saldoAnteriorTextCtrl->SetToolTip(wxT("Es el saldo pendiente de clientes hasta ayer."));
     #if wxVERSION_NUMBER >= 3000
     m_saldoAnteriorTextCtrl->SetHint(wxT(""));
@@ -67,6 +68,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     
     m_creditoConcedidoTextCtrl = new wxTextCtrl(m_panel17, wxID_ANY, wxT("0"), wxDefaultPosition, wxDLG_UNIT(m_panel17, wxSize(-1,-1)), wxTE_RIGHT, wxMakeFloatingPointValidator(2, &registro::credito_concedido, wxNUM_VAL_THOUSANDS_SEPARATOR));
     m_creditoConcedidoTextCtrl->SetToolTip(wxT("Importe del crédito concedido hoy"));
+    m_creditoConcedidoTextCtrl->SetFocus();
     #if wxVERSION_NUMBER >= 3000
     m_creditoConcedidoTextCtrl->SetHint(wxT(""));
     #endif
@@ -368,7 +370,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     boxSizer12->Add(m_buttonCancel, 0, wxALL, WXC_FROM_DIP(5));
     
     SetName(wxT("MainDialogBaseClass"));
-    SetSize(600,500);
+    SetSize(600,900);
     if (GetSizer()) {
          GetSizer()->Fit(this);
     }
@@ -397,6 +399,7 @@ MainDialogBaseClass::MainDialogBaseClass(wxWindow* parent, wxWindowID id, const 
     m_importe6textCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
     m_buttonSEND->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
+    m_buttonCancel->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonCancelClicked), NULL, this);
     
 }
 
@@ -414,5 +417,6 @@ MainDialogBaseClass::~MainDialogBaseClass()
     m_importe6textCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainDialogBaseClass::OnImporte2Banco3Updated), NULL, this);
     m_buttonOK->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonOKClicked), NULL, this);
     m_buttonSEND->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonSendClicked), NULL, this);
+    m_buttonCancel->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainDialogBaseClass::OnButtonCancelClicked), NULL, this);
     
 }

@@ -107,6 +107,7 @@ protected:
     virtual void OnImporte2Banco3Updated(wxCommandEvent& event) { event.Skip(); }
     virtual void OnButtonOKClicked(wxCommandEvent& event) { event.Skip(); }
     virtual void OnButtonSendClicked(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnButtonCancelClicked(wxCommandEvent& event) { event.Skip(); }
 
 public:
     wxDatePickerCtrl* GetFechaInformeDatePicker() { return m_fechaInformeDatePicker; }
@@ -161,7 +162,7 @@ public:
     wxButton* GetButtonOK() { return m_buttonOK; }
     wxButton* GetButtonSEND() { return m_buttonSEND; }
     wxButton* GetButtonCancel() { return m_buttonCancel; }
-    MainDialogBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Previsión de tesorería"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(600,500), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL);
+    MainDialogBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Previsión de tesorería"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(600,900), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL);
     virtual ~MainDialogBaseClass();
 };
 
